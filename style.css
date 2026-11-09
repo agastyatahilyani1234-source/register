@@ -1,0 +1,94 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --line: #e8e8ec;
+  --soft: #f6f7f9;
+  --accent: #3b5bdb;
+  --accent-soft: #edf0fd;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+h1 { font-size: 1.25rem; margin: 0; font-weight: 650; }
+h2 { font-size: 1.05rem; margin: 28px 0 10px; font-weight: 650; }
+p { margin: 0; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+.top { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 5; }
+.top-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 14px; padding-bottom: 8px; }
+.streak { text-align: right; line-height: 1.1; }
+.streak span:first-child { display: block; font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+.tabs { display: flex; gap: 4px; padding-bottom: 8px; overflow-x: auto; }
+.tabs button { border: 0; background: none; padding: 6px 12px; border-radius: 999px; color: var(--muted); }
+.tabs button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+main { padding-top: 20px; padding-bottom: 40px; }
+.foot { padding-bottom: 28px; text-align: center; }
+
+.daynav { display: flex; align-items: center; gap: 8px; }
+.daynav .title { flex: 1; min-width: 0; }
+.daynav .title h2 { margin: 0; }
+.iconbtn { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; width: 36px; height: 36px; }
+.iconbtn:hover { background: var(--soft); }
+.textbtn { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 12px; font-size: 0.9rem; }
+.textbtn:hover { background: var(--soft); }
+
+.bar { height: 8px; background: var(--soft); border-radius: 999px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.25s; }
+.stat { display: flex; justify-content: space-between; margin: 14px 0 6px; font-size: 0.9rem; }
+
+.quote { margin-top: 16px; padding: 12px 14px; background: var(--soft); border-radius: var(--radius); }
+.banner { margin-top: 16px; padding: 12px 14px; background: var(--accent-soft); color: var(--accent); border-radius: var(--radius); font-weight: 600; }
+.note { margin-top: 12px; }
+.note.exam { color: var(--accent); font-weight: 600; }
+
+.list { list-style: none; margin: 16px 0 0; padding: 0; }
+.row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.row label { display: flex; gap: 12px; align-items: flex-start; flex: 1; cursor: pointer; min-width: 0; }
+.row input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); flex: none; }
+.row .txt { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.row .sub { font-weight: 600; }
+.row .min { color: var(--muted); font-size: 0.85rem; white-space: nowrap; padding-top: 2px; }
+.row.break { opacity: 0.65; }
+.row.break .sub { font-weight: 400; }
+.row.done .txt { color: var(--muted); text-decoration: line-through; }
+.tag { display: inline-block; font-size: 0.72rem; padding: 0 7px; border-radius: 999px; background: var(--soft); color: var(--muted); margin-left: 6px; vertical-align: 1px; }
+
+.week { margin-top: 24px; }
+.week h2 { margin-bottom: 2px; }
+.dayrow { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: none; padding: 10px 0; }
+.dayrow:hover { background: var(--soft); }
+.dayrow .d { width: 84px; font-weight: 600; flex: none; }
+.dayrow .k { flex: 1; color: var(--muted); font-size: 0.9rem; min-width: 0; }
+.dayrow .p { width: 44px; text-align: right; font-size: 0.85rem; color: var(--muted); flex: none; }
+.dayrow.today .d { color: var(--accent); }
+.dayrow.full .p { color: var(--accent); font-weight: 600; }
+
+.card { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
+.card .head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.card .name { font-weight: 600; }
+.card .days { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.card .meta { margin: 4px 0 10px; }
+.card.past { opacity: 0.55; }
+
+details { margin-top: 24px; }
+summary { cursor: pointer; font-weight: 600; }
+details ol { padding-left: 20px; }
+details li { margin: 6px 0; }
+
+.big { font-size: 2rem; font-weight: 700; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 16px; }
+.grid .card { margin: 0; }
+
+@media (max-width: 420px) {
+  .dayrow .d { width: 72px; }
+}

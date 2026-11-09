@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Exam tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <div>
+      <h1>Exam tracker</h1>
+      <p id="next-exam" class="muted"></p>
+    </div>
+    <div class="streak" title="Days in a row with every box ticked">
+      <span id="streak-num">0</span>
+      <span class="muted">day streak</span>
+    </div>
+  </div>
+  <nav class="wrap tabs" id="tabs">
+    <button data-tab="today" class="on">Today</button>
+    <button data-tab="plan">Plan</button>
+    <button data-tab="exams">Exams</button>
+    <button data-tab="progress">Progress</button>
+  </nav>
+</header>
+<main class="wrap" id="view"></main>
+<footer class="wrap muted foot">Progress is saved in this browser only.</footer>
+<script src="plan.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
