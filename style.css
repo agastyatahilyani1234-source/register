@@ -98,3 +98,6 @@ details li { margin: 6px 0; }
 .linkbtn { border: 0; background: none; color: var(--accent); padding: 0 0 0 10px; font-size: 0.85rem; text-decoration: underline; }
 .tag-moved { background: var(--accent-soft); color: var(--accent); }
 .row .min { text-align: right; }
+
+.actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.textbtn.solid { background: var(--accent); color: #fff; border-color: var(--accent); }

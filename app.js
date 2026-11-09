@@ -74,6 +74,7 @@
     try { s = JSON.parse(localStorage.getItem(KEY)); } catch (e) { /* storage unavailable */ }
     if (!s || !s.done) s = { done: { '2026-11-09:0': true } }; // Biology Topic 1 was already done
     s.dropped = s.dropped || {};
+    s.deferred = s.deferred || {};
     s.clearBy = s.clearBy || {};
     s.assign = s.assign || {};
     return s;
@@ -160,11 +161,16 @@
     var capDays = DAYS.filter(function (d) { return d.date >= T && CAP[d.kind]; });
     capDays.forEach(function (d) { s.extra[d.date] = 0; });
 
+    function minDateOf(id) {
+      var dd = state.deferred[id];
+      var m = dd ? addDays(dd, 1) : T;
+      return m > T ? m : T;
+    }
     DAYS.forEach(function (d) {
-      if (d.date >= T) return;
       d.items.forEach(function (it) {
         if (NON_STUDY[it.type] || isDone(it) || state.dropped[it.id]) return;
-        s.overdue.push({ it: it, from: d });
+        if (d.date >= T && !state.deferred[it.id]) return;
+        s.overdue.push({ it: it, from: d, minDate: minDateOf(it.id) });
         s.total += it.min;
       });
     });
@@ -186,7 +192,7 @@
     var fresh = [];
     s.overdue.forEach(function (e) {
       var a = state.assign[e.it.id];
-      var d = a && capDays.filter(function (x) { return x.date === a; })[0];
+      var d = a && a >= e.minDate && capDays.filter(function (x) { return x.date === a; })[0];
       if (d) place(e, d); else fresh.push(e);
     });
 
@@ -199,8 +205,9 @@
       return a.dl < b.dl ? -1 : a.dl > b.dl ? 1 : (a.from.date < b.from.date ? -1 : a.from.date > b.from.date ? 1 : 0);
     });
     fresh.forEach(function (e) {
-      var elig = capDays.filter(function (d) { return d.date <= e.dl; });
-      if (!elig.length) elig = capDays.slice(0, 1);
+      var later = capDays.filter(function (d) { return d.date >= e.minDate; });
+      var elig = later.filter(function (d) { return d.date <= e.dl; });
+      if (!elig.length) elig = later.slice(0, 1);
       if (!elig.length) { s.unplaced.push(e); return; }
       var fits = elig.filter(function (d) { return s.extra[d.date] + e.it.min <= CAP[d.kind]; });
       var pool = fits.length ? fits : elig;
@@ -222,12 +229,23 @@
   }
 
   var SCHED = null;
+  var confirmDefer = false;
+
+  // Items still to do today (base plan and catch-up that landed on today).
+  function pendingToday(day) {
+    var out = [];
+    day.items.concat(catchUp(day).map(function (e) { return e.it; })).forEach(function (it) {
+      if (NON_STUDY[it.type] || isDone(it) || state.dropped[it.id] || state.deferred[it.id]) return;
+      out.push(it);
+    });
+    return out;
+  }
 
   // ---------- day maths ----------
   function catchUp(day) { return SCHED.byDay[day.date] || []; }
 
   function dayStats(day, withCatch) {
-    var all = day.items.slice();
+    var all = day.items.filter(function (it) { return isDone(it) || !state.deferred[it.id]; });
     if (withCatch) catchUp(day).forEach(function (e) { all.push(e.it); });
     var total = 0, done = 0, left = 0, practice = 0, catchMin = 0;
     all.forEach(function (it) {
@@ -264,13 +282,16 @@
     var i = -1;
     DAYS.forEach(function (d, k) { if (d.date <= iso) i = k; });
     if (i < 0) return 0;
+    function allDone(d) {
+      return d.items.every(function (it) { return it.type === 'break' || isDone(it); });
+    }
     var ts = DAYS[i].date === iso ? dayStats(DAYS[i], false) : null;
-    if (ts && ts.hasWork && !ts.complete) i--;
+    if (ts && ts.hasWork && !allDone(DAYS[i])) i--;
     var n = 0;
     for (; i >= 0; i--) {
       var s = dayStats(DAYS[i], false);
       if (!s.hasWork) continue;
-      if (!s.complete) break;
+      if (!allDone(DAYS[i])) break;
       n++;
     }
     return n;
@@ -372,17 +393,31 @@
     if (subs.length) html += '<p class="note muted">' + esc(subs.join(', ')) + '. Study ' + fmt(st.total - st.practice) + ', practice ' + fmt(st.practice) + '.</p>';
     if (day.tip) html += '<p class="note">' + esc(day.tip) + '</p>';
     if (isToday || !isPast) html += backlogBanner();
+    if (isToday) {
+      var rest = pendingToday(day);
+      if (rest.length) {
+        var restMin = rest.reduce(function (n, it) { return n + it.min; }, 0);
+        if (confirmDefer) {
+          html += '<div class="catch">Move ' + rest.length + ' unticked items (' + fmt(restMin) + ') to later days? They are spread over the next days, each before its Done by date.' +
+            '<div class="actions"><button class="textbtn solid" data-defer="yes">Yes, move them</button><button class="textbtn" data-defer="no">Cancel</button></div></div>';
+        } else {
+          html += '<div class="actions"><button class="textbtn" data-defer="ask">Move the rest of today to later days</button></div>';
+        }
+      }
+    }
 
     if (st.hasWork) {
       html += '<div class="stat"><span>' + fmt(st.done) + ' of ' + fmt(st.total) + '</span><span>' + pct(st.done, st.total) + '%</span></div>' +
         '<div class="bar"><i style="width:' + pct(st.done, st.total) + '%"></i></div>';
-      if (st.complete) html += '<div class="banner">Day done. Close the books, and be in bed early.</div>';
+      var hasDef = day.items.some(function (it) { return state.deferred[it.id] && !isDone(it); });
+      if (st.complete && hasDef) html += '<div class="banner">The rest of today is moved to later days. Rest up.</div>';
+      else if (st.complete) html += '<div class="banner">Day done. Close the books, and be in bed early.</div>';
       else html += '<div class="quote">' + esc(quote) + '</div>';
 
       html += '<ul class="list">';
       day.items.forEach(function (it) {
         var mv = SCHED.moved[it.id];
-        html += rowHtml(it, { movedTo: isPast && mv && shortDate(mv), dropped: isPast && state.dropped[it.id] });
+        html += rowHtml(it, { movedTo: (isPast || state.deferred[it.id]) && mv && shortDate(mv), dropped: isPast && state.dropped[it.id] });
       });
       html += '</ul>';
 
@@ -516,6 +551,24 @@
   });
 
   view.addEventListener('click', function (e) {
+    var df = e.target.closest('[data-defer]');
+    if (df) {
+      var act = df.getAttribute('data-defer');
+      if (act === 'ask') confirmDefer = true;
+      else if (act === 'no') confirmDefer = false;
+      else {
+        var tday = DAYS[selected];
+        var iso0 = isoOf(todayDate());
+        pendingToday(tday).forEach(function (it) {
+          state.deferred[it.id] = iso0;
+          delete state.assign[it.id];
+        });
+        confirmDefer = false;
+        save();
+      }
+      render();
+      return;
+    }
     var drop = e.target.closest('[data-drop]');
     if (drop) {
       state.dropped[drop.getAttribute('data-drop')] = true;
