@@ -92,3 +92,9 @@ details li { margin: 6px 0; }
 @media (max-width: 420px) {
   .dayrow .d { width: 72px; }
 }
+
+.catch { margin-top: 16px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: var(--radius); font-size: 0.92rem; }
+.warn { color: #b42318; }
+.linkbtn { border: 0; background: none; color: var(--accent); padding: 0 0 0 10px; font-size: 0.85rem; text-decoration: underline; }
+.tag-moved { background: var(--accent-soft); color: var(--accent); }
+.row .min { text-align: right; }

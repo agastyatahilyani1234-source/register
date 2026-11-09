@@ -5,7 +5,6 @@
 const PLAN_TEXT = String.raw`
 @ Week 1 | Mon 9 to Sun 15 Nov | Diwali
 # 2026-11-09 | Mon 9 Nov | Diwali sprint | 8 h
-! Biology, ICT and English Literature. Study 6 h 30 min, practice 1 h 30 min.
 Biology | 40 | Topic 1 Characteristics and classification of living organisms (carried over)
 ICT | 40 | Ch 1 Types and components of computer systems (carried over)
 Break | 15
@@ -24,7 +23,6 @@ Break | 15
 ICT | 50 | Ch 4 Networks and the effects of using them
 ICT | 30 | practice
 # 2026-11-10 | Tue 10 Nov | Diwali sprint | 7 h 30 min
-! Hindi, Physics and Chemistry. Study 5 h 15 min, practice 2 h 15 min.
 Recall | 10
 Hindi | 65 | स्वास्थ्य (health) (carried over)
 Break | 15
@@ -41,7 +39,6 @@ Break | 15
 Hindi | 30 | practice
 Hindi | 45 | listen
 # 2026-11-11 | Wed 11 Nov | Diwali sprint | 7 h 25 min
-! Biology and ICT. Study 6 h 25 min, practice 1 h.
 Recall | 10
 Biology | 55 | Topic 4 Biological molecules: carbohydrates, proteins, fats, food tests, DNA structure, water
 Biology | 35 | Topic 5 Enzymes: properties, effect of temperature and pH, enzyme experiments
@@ -59,7 +56,6 @@ Biology | 30 | practice
 ICT | 30 | Ch 9 Audiences and Ch 10 Communication
 ICT | 30 | practice
 # 2026-11-12 | Thu 12 Nov | Diwali sprint | 7 h 25 min
-! Biology and ICT. Study 6 h 25 min, practice 1 h.
 Recall | 10
 Biology | 50 | Topic 8 Transport in plants: root hairs, xylem, transpiration, phloem and translocation
 Break | 15
@@ -77,7 +73,6 @@ Biology | 30 | practice
 ICT | 40 | Ch 17 Document production (do the tasks on a computer)
 ICT | 30 | practice
 # 2026-11-13 | Fri 13 Nov | Diwali sprint | 6 h 30 min
-! Biology, ICT and Hindi. Study 4 h 45 min, practice 1 h 45 min.
 Recall | 10
 Biology | 35 | Topic 12 Respiration: aerobic and anaerobic respiration, respiration experiments
 Biology | 35 | Topic 13 Excretion in humans: excretory products, kidney structure and function, dialysis
@@ -94,7 +89,6 @@ Break | 15
 Biology | 30 | practice
 Hindi | 45 | listen
 # 2026-11-14 | Sat 14 Nov | Diwali sprint | 7 h 15 min
-! Biology, ICT and Hindi. Study 5 h 45 min, practice 1 h 30 min.
 Recall | 10
 Hindi | 75 | पत्र (letter): formal and informal formats and one practice letter, using पर्यावरण vocabulary
 Break | 15
@@ -111,7 +105,6 @@ ICT | 50 | Ch 21 Website authoring (do the tasks on a computer)
 Break | 15
 ICT | 30 | practice
 # 2026-11-15 | Sun 15 Nov | Light day | 4 h 45 min
-! Hindi and English Literature. Study 3 h 45 min, practice 1 h.
 Recall | 10
 English Literature | 35 | Paper 1 Prose: The Gold Watch
 English Literature | 35 | Paper 1 Prose: Nick
@@ -125,7 +118,6 @@ Break | 15
 Hindi | 30 | practice
 @ Week 2 | Mon 16 to Sun 22 Nov | School days
 # 2026-11-16 | Mon 16 Nov | School day | 3 h
-! Physics. Study 2 h 30 min, practice 30 min.
 Recall | 10
 Physics | 70 | Ch 2 Forces and motion (1/3): speed, velocity, acceleration; distance-time and speed-time graphs
 Break | 15
@@ -133,7 +125,6 @@ Physics | 80 | Ch 2 Forces and motion (2/3): mass, weight and g, free fall, resu
 Break | 15
 Physics | 30 | practice
 # 2026-11-17 | Tue 17 Nov | School day | 3 h 5 min
-! Physics and Hindi. Study 1 h 50 min, practice 1 h 15 min.
 Recall | 10
 Physics | 50 | Ch 2 Forces and motion (3/3): momentum, impulse, conservation of momentum, circular motion
 Break | 15
@@ -142,7 +133,6 @@ Physics | 30 | practice
 Break | 15
 Hindi | 45 | listen
 # 2026-11-18 | Wed 18 Nov | School day | 2 h 40 min
-! Physics. Study 2 h 10 min, practice 30 min.
 Recall | 10
 Physics | 25 | Ch 3 Forces and pressure (2/3): Hooke's law, springs, force-extension graphs
 Physics | 50 | Ch 3 Forces and pressure (3/3): pressure = force / area, liquid pressure, atmospheric pressure, barometer and manometer
@@ -150,7 +140,6 @@ Break | 15
 Physics | 55 | Ch 4 Forces and energy (1/2): forms of energy, transfers and conservation, work done, kinetic and gravitational potential energy
 Physics | 30 | practice
 # 2026-11-19 | Thu 19 Nov | School day | 3 h 20 min
-! Physics. Study 2 h 50 min, practice 30 min.
 Recall | 10
 Physics | 55 | Ch 4 Forces and energy (2/2): power, efficiency, energy resources (fossil fuels, nuclear, solar, wind, hydro, geothermal)
 Break | 15
@@ -159,7 +148,7 @@ Break | 15
 Physics | 60 | Ch 5 Thermal effects (2/3): specific heat capacity, melting and boiling, latent heat, evaporation
 Physics | 30 | practice
 # 2026-11-20 | Fri 20 Nov | School day | 2 h 55 min
-! Exam today: English Literature P4 Unseen. Physics: study 2 h 25 min, practice 30 min.
+! Exam today: English Literature P4 Unseen.
 Recall | 10
 Physics | 45 | Ch 5 Thermal effects (3/3): conduction, convection, radiation and their applications
 Break | 15
@@ -168,7 +157,6 @@ Physics | 45 | Ch 6 Waves and sounds (2/2): sound, speed in different media, ech
 Break | 15
 Physics | 30 | practice
 # 2026-11-21 | Sat 21 Nov | Weekend | 6 h 10 min
-! Physics and Hindi. Study 4 h 25 min, practice 1 h 45 min.
 Recall | 10
 Physics | 55 | Ch 7 Rays and waves (1/4): reflection in plane mirrors, refraction and refractive index
 Break | 15
@@ -183,7 +171,6 @@ Break | 15
 Physics | 30 | practice
 Hindi | 45 | listen
 # 2026-11-22 | Sun 22 Nov | Light day | 1 h 55 min
-! Physics. Study 1 h 25 min, practice 30 min.
 Recall | 10
 Physics | 40 | Ch 8 Electricity (1/5): static electricity, charging, electric fields, conductors and insulators
 Physics | 45 | Ch 8 Electricity (2/5): current, potential difference, e.m.f., resistance, charge = current x time
@@ -191,7 +178,6 @@ Break | 15
 Physics | 30 | practice
 @ Week 3 | Mon 23 to Sun 29 Nov | Exam week begins
 # 2026-11-23 | Mon 23 Nov | Study day | 5 h 55 min
-! Hindi and Physics. Study 4 h 55 min, practice 1 h.
 Recall | 10
 Hindi | 65 | तकनीक (technology) (1/2): key vocabulary, reading passage and comprehension questions
 Break | 15
@@ -205,7 +191,6 @@ Break | 15
 Hindi | 65 | जीवनी (biography) (1/2): key vocabulary, reading passage and comprehension questions
 Hindi | 30 | practice
 # 2026-11-24 | Tue 24 Nov | Study day | 6 h
-! English Language, English Literature and Hindi. Study 4 h 15 min, practice 1 h 45 min.
 Recall | 10
 English Literature | 35 | Paper 1 Prose: The Black Ball
 English Literature | 35 | Paper 1 Prose: When It Happens
@@ -222,7 +207,7 @@ English Literature | 30 | practice
 Break | 15
 Hindi | 45 | listen
 # 2026-11-25 | Wed 25 Nov | School day | 2 h 20 min
-! Exam today: Biology. English Literature: study 1 h 50 min, practice 30 min.
+! Exam today: Biology.
 Recall | 10
 English Literature | 35 | Paper 1 Prose: Haywards Heath
 Break | 15
@@ -230,7 +215,7 @@ English Literature | 75 | Paper 1 Poetry: Song: Love Armed; A Different History;
 Break | 15
 English Literature | 30 | practice
 # 2026-11-26 | Thu 26 Nov | School day | 3 h
-! Exam today: ICT. English Literature: study 2 h 30 min, practice 30 min.
+! Exam today: ICT.
 Recall | 10
 English Literature | 75 | Paper 1 Poetry: Report to Wordsworth; Follower; Storyteller
 Break | 15
@@ -238,7 +223,7 @@ English Literature | 75 | Paper 1 Poetry: A Married State; Sonnet 18; Chimney Sw
 Break | 15
 English Literature | 30 | practice
 # 2026-11-27 | Fri 27 Nov | School day | 3 h 20 min
-! Exams today: Hindi P1, Additional Maths P1. English Literature and English Language: study 2 h 20 min, practice 1 h.
+! Exams today: Hindi P1, Additional Maths P1.
 Recall | 10
 English Language | 40 | Paper 1 Reading: writer's effect (word choice, imagery, sentence structure, explaining the effect)
 English Language | 25 | Papers 1 and 2: writer's attitude (tone, viewpoint, supporting evidence)
@@ -249,7 +234,6 @@ English Literature | 75 | Paper 1 Poetry: Lament; Hunting Snake; Carpet Weavers
 Break | 15
 English Literature | 30 | practice
 # 2026-11-28 | Sat 28 Nov | Weekend | 6 h
-! English Language and Physics. Study 5 h, practice 1 h.
 Recall | 10
 English Language | 25 | Writing: journal entry (format, voice, reflective detail) plus one timed piece
 English Language | 30 | Writing: newspaper report (headline, lead, quotes, structure, register) plus one timed piece
@@ -266,7 +250,6 @@ Physics | 30 | practice
 English Language | 35 | Writing: formal report (headings, sections, recommendations, objective tone) plus one timed piece
 English Language | 30 | practice
 # 2026-11-29 | Sun 29 Nov | Weekend | 5 h 40 min
-! Physics, English Language and Hindi. Study 3 h 55 min, practice 1 h 45 min.
 Recall | 10
 Physics | 55 | Ch 9 Magnets and currents (3/3): electromagnetic induction, generator, transformers
 Physics | 35 | Ch 10 Atoms and radioactivity (1/2): nuclear model of the atom, nucleon and proton numbers, isotopes
@@ -281,7 +264,6 @@ Physics | 30 | practice
 Hindi | 45 | listen
 @ Week 4 | Mon 30 Nov to Sun 6 Dec | Chemistry and Drama
 # 2026-11-30 | Mon 30 Nov | Study day | 5 h 25 min
-! Chemistry and English Literature. Study 4 h 25 min, practice 1 h.
 Recall | 10
 Chemistry | 55 | Ch 2 Atoms and elements: atomic structure, isotopes, electronic configuration, relative atomic mass
 Break | 15
@@ -294,7 +276,7 @@ Break | 15
 Chemistry | 50 | Ch 4 Reacting masses and chemical equations: formulae, balanced and ionic equations, state symbols, Mr
 Chemistry | 30 | practice
 # 2026-12-01 | Tue 1 Dec | School day | 3 h 20 min
-! Exams today: English Literature P1, Additional Maths P2. Chemistry: study 2 h 50 min, practice 30 min.
+! Exams today: English Literature P1, Additional Maths P2.
 Recall | 10
 Chemistry | 40 | Ch 5 Using moles (1/2): the mole, relative formula mass, mole calculations from masses, gas volumes
 Chemistry | 40 | Ch 5 Using moles (2/2): concentration, limiting reactant, percentage yield and purity, empirical and molecular formulae
@@ -305,14 +287,14 @@ Chemistry | 30 | Ch 7 Electricity and chemical change (2/2): electroplating, cop
 Break | 15
 Chemistry | 30 | practice
 # 2026-12-02 | Wed 2 Dec | School day | 2 h 35 min
-! Exams today: English Language P1, Hindi P2 listening. English Literature: study 2 h 5 min, practice 30 min.
+! Exams today: English Language P1, Hindi P2 listening.
 Recall | 10
 English Literature | 85 | Paper 3 Drama: A Midsummer Night's Dream Act 2 (forest, fairies, Oberon, Titania, Puck, love potion, plan one exam-style essay question)
 Break | 15
 English Literature | 40 | Paper 3 Drama: A Midsummer Night's Dream Act 3 scene 1 (rehearsal, Bottom's transformation, key quotes)
 English Literature | 30 | practice
 # 2026-12-03 | Thu 3 Dec | School day | 3 h
-! Exam today: Physics. English Literature and Chemistry: study 2 h, practice 1 h.
+! Exam today: Physics.
 Recall | 10
 Chemistry | 30 | Ch 8 Energy changes and reactions: exothermic and endothermic reactions, energy level diagrams, bond energies
 Chemistry | 30 | practice
@@ -321,7 +303,7 @@ English Literature | 90 | Paper 3 Drama: A Midsummer Night's Dream Act 3 scene 2
 Break | 15
 English Literature | 30 | practice
 # 2026-12-04 | Fri 4 Dec | School day | 2 h 40 min
-! Exam today: English Language P2. Chemistry: study 2 h 10 min, practice 30 min.
+! Exam today: English Language P2.
 Recall | 10
 Chemistry | 50 | Ch 9 The rate of reaction: factors affecting rate, collision theory, catalysts, rate graphs
 Chemistry | 35 | Ch 10 Reversible reactions and equilibrium: dynamic equilibrium, effect of conditions, Haber and Contact processes
@@ -329,7 +311,6 @@ Break | 15
 Chemistry | 45 | Ch 11 Acids, bases and salts (1/2): pH scale, indicators, properties of acids and bases, neutralisation, strong and weak acids
 Chemistry | 30 | practice
 # 2026-12-05 | Sat 5 Dec | Weekend | 4 h
-! Chemistry. Study 3 h 30 min, practice 30 min.
 Recall | 10
 Chemistry | 45 | Ch 11 Acids, bases and salts (2/2): making soluble and insoluble salts, titration, types of oxide
 Break | 15
@@ -340,7 +321,6 @@ Break | 15
 Chemistry | 55 | Ch 14 Extracting and using metals: ores, extraction methods, rusting and prevention, alloys, recycling
 Chemistry | 30 | practice
 # 2026-12-06 | Sun 6 Dec | Weekend | 2 h 30 min
-! Chemistry. Study 2 h, practice 30 min.
 Recall | 10
 Chemistry | 45 | Ch 18 Separation and purification: filtration, crystallisation, distillation, chromatography and Rf, purity
 Chemistry | 35 | Ch 19 Experiments and tests in lab (1/2): apparatus, planning experiments, tests for aqueous cations and anions
@@ -369,15 +349,15 @@ const EXAMS = [
   { name: 'Biology', date: '2026-11-25', doneBy: '2026-11-22', planned: 'Sat 14 Nov', spare: 8, subject: 'Biology' },
   { name: 'ICT', date: '2026-11-26', doneBy: '2026-11-23', planned: 'Sat 14 Nov', spare: 9, subject: 'ICT' },
   { name: 'Hindi P1', date: '2026-11-27', doneBy: '2026-11-24', planned: 'Mon 23 Nov', spare: 1, subject: 'Hindi', skip: 'listen' },
-  { name: 'Additional Maths P1', date: '2026-11-27' },
+  { name: 'Additional Maths P1', date: '2026-11-27', doneBy: '2026-11-24', planned: 'Mon 23 Nov', spare: 1, subject: 'Additional Maths', match: /^(Topic|Past paper P1)/ },
   { name: 'English Literature P1', date: '2026-12-01', doneBy: '2026-11-28', planned: 'Fri 27 Nov', spare: 1, subject: 'English Literature', match: /^Paper 1/ },
-  { name: 'Additional Maths P2', date: '2026-12-01' },
+  { name: 'Additional Maths P2', date: '2026-12-01', doneBy: '2026-11-28', planned: 'Mon 23 Nov', spare: 5, subject: 'Additional Maths', match: /^(Topic|Past paper)/ },
   { name: 'English Language P1', date: '2026-12-02', doneBy: '2026-11-29', planned: 'Sat 28 Nov', spare: 1, subject: 'English Language', match: /^(Paper 1|Papers 1 and 2|Writing)/ },
-  { name: 'Hindi P2 listening', date: '2026-12-02', subject: 'Hindi', only: 'listen' },
+  { name: 'Hindi P2 listening', date: '2026-12-02', doneBy: '2026-11-29', planned: 'Sun 29 Nov', spare: 0, subject: 'Hindi', only: 'listen' },
   { name: 'Physics', date: '2026-12-03', doneBy: '2026-11-30', planned: 'Sun 29 Nov', spare: 1, subject: 'Physics' },
   { name: 'English Language P2', date: '2026-12-04', doneBy: '2026-12-01', planned: 'Sun 29 Nov', spare: 2, subject: 'English Language', match: /^(Paper 2|Papers 1 and 2)/ },
-  { name: 'International Maths P2 and P6', date: '2026-12-07' },
-  { name: 'International Maths P4', date: '2026-12-08' },
+  { name: 'International Maths P2 and P6', date: '2026-12-07', doneBy: '2026-12-04', planned: 'Sat 28 Nov', spare: 6, subject: 'International Maths', match: /^(Topic|Past paper P[26])/ },
+  { name: 'International Maths P4', date: '2026-12-08', doneBy: '2026-12-05', planned: 'Sat 28 Nov', spare: 7, subject: 'International Maths', match: /^(Topic|Past paper P4)/ },
   { name: 'English Literature P3 Drama', date: '2026-12-08', doneBy: '2026-12-05', planned: 'Thu 3 Dec', spare: 2, subject: 'English Literature', match: /^Paper 3/ },
   { name: 'ICT Practical P3', date: '2026-12-09' },
   { name: 'Chemistry', date: '2026-12-10', doneBy: '2026-12-07', planned: 'Sun 6 Dec', spare: 1, subject: 'Chemistry' }
@@ -388,10 +368,11 @@ const RULES = [
   'Work in blocks of at most 90 minutes, then take the break shown. The 45-minute break is for a meal and a walk. Keep your phone out of reach.',
   'After a subject\'s last topic of the day, do its 30-minute practice slot using the five questions at the end of that day\'s notes.',
   'Hindi Paper 2 listening: use your own recordings, play each one twice as in the exam, and mark yourself afterwards.',
-  'At most 3 subjects a day, alternating through the day. The Hindi listening slot does not count towards the 3.',
+  'At most 3 subjects a day for topics, alternating through the day. The Hindi listening slot and the two daily Maths slots do not count towards the 3.',
   'Stop by 9 pm and protect 8 hours of sleep.',
   'If a day slips, do not double up. Move the topic to the next day with spare time, and never past its Done by date.',
-  'Tick each box as you finish it. The time in each day heading counts study, practice and listening only.'
+  'Tick each box as you finish it. The time in each day heading counts study, practice and listening only.',
+  'Anything you miss moves on by itself. Each missed item is placed on a later day, spread out so no day gets doubled up, and the whole backlog clears within 5 to 7 days. Items that are not worth doing can be dropped.'
 ];
 
 const QUOTES = [
@@ -414,3 +395,69 @@ const QUOTES = [
   'Check the countdown, then close the tab and study.',
   'Diwali sprint now, easy school days later. The effort pays off.'
 ];
+
+// Daily Maths slots. One entry per plan day from "from" to "to" (free days are skipped).
+// These topic lists follow the usual Cambridge IGCSE order. Edit them to match your own syllabus.
+const MATHS = {
+  add: {
+    name: 'Additional Maths', min: 60, from: '2026-11-09', to: '2026-12-01',
+    slots: [
+      'Topic: Functions (domain, range, composite and inverse functions)',
+      'Topic: Quadratic functions (completing the square, discriminant, graphs and inequalities)',
+      'Topic: Equations, inequalities and graphs (modulus, factor and remainder theorems, cubics)',
+      'Topic: Simultaneous equations (linear with quadratic, where a line meets a curve)',
+      'Topic: Logarithmic and exponential functions (laws, solving equations, ln and e)',
+      'Topic: Straight-line graphs (linear laws, turning y = ax^n and y = Ab^x into y = mx + c)',
+      'Topic: Coordinate geometry (gradient, midpoint, perpendicular bisector, equation of a circle)',
+      'Topic: Circular measure (radians, arc length, sector area)',
+      'Topic: Trigonometry (1/2): exact values, graphs, amplitude and period',
+      'Topic: Trigonometry (2/2): identities, solving equations, reciprocal functions',
+      'Topic: Permutations and combinations',
+      'Topic: Binomial expansion',
+      'Topic: Vectors in two dimensions (magnitude, position vectors, geometry proofs)',
+      'Topic: Differentiation (rules, tangents and normals, stationary points, rates of change)',
+      'Topic: Integration and kinematics (reverse differentiation, area under a curve, velocity and acceleration)',
+      'Past paper P1 (1/3): timed, mark it, then fix every lost mark',
+      'Past paper P1 (2/3): timed, mark it, then fix every lost mark',
+      'Past paper P1 (3/3): timed, mark it, then fix every lost mark',
+      'Past paper P2 (1/5): timed, mark it, then fix every lost mark',
+      'Past paper P2 (2/5): timed, mark it, then fix every lost mark',
+      'Past paper P2 (3/5): timed, mark it, then fix every lost mark',
+      'Past paper P2 (4/5): timed, mark it, then fix every lost mark',
+      'Past paper P2 (5/5): timed, mark it, then fix every lost mark'
+    ]
+  },
+  intl: {
+    name: 'International Maths', min: 30, from: '2026-11-09', to: '2026-12-06',
+    slots: [
+      'Topic: Number (1/3): types of number, HCF and LCM, fractions, decimals, percentages',
+      'Topic: Number (2/3): ratio, proportion, rates, indices and standard form',
+      'Topic: Number (3/3): limits of accuracy, compound interest, growth and decay',
+      'Topic: Algebra (1/5): expressions, expanding, factorising, algebraic fractions',
+      'Topic: Algebra (2/5): linear and quadratic equations, rearranging formulae',
+      'Topic: Algebra (3/5): simultaneous equations, inequalities, linear programming',
+      'Topic: Algebra (4/5): sequences, nth term, direct and inverse proportion',
+      'Topic: Algebra (5/5): functions and function notation',
+      'Topic: Graphs of functions (1/2): linear, quadratic, cubic, reciprocal and exponential graphs',
+      'Topic: Graphs of functions (2/2): gradients, tangents, differentiation, turning points',
+      'Topic: Coordinate geometry (gradient, midpoint, length, equation of a line)',
+      'Topic: Geometry (1/3): angle rules, polygons, parallel lines, symmetry',
+      'Topic: Geometry (2/3): circle theorems',
+      'Topic: Geometry (3/3): similarity, congruence, constructions, loci',
+      'Topic: Mensuration (perimeter, area, volume, surface area, arc and sector)',
+      'Topic: Trigonometry (1/2): right-angled triangles, Pythagoras, bearings',
+      'Topic: Trigonometry (2/2): sine rule, cosine rule, area of a triangle, 3D problems',
+      'Topic: Transformations and vectors',
+      'Topic: Probability (tree diagrams, Venn diagrams, conditional probability)',
+      'Topic: Statistics (averages, cumulative frequency, histograms, scatter graphs)',
+      'Past paper P2 (1/3): timed, mark it, then fix every lost mark',
+      'Past paper P4 (1/3): timed, mark it, then fix every lost mark',
+      'Past paper P6 (1/2): timed, mark it, then fix every lost mark',
+      'Past paper P2 (2/3): timed, mark it, then fix every lost mark',
+      'Past paper P4 (2/3): timed, mark it, then fix every lost mark',
+      'Past paper P6 (2/2): timed, mark it, then fix every lost mark',
+      'Past paper P2 (3/3): timed, mark it, then fix every lost mark',
+      'Past paper P4 (3/3): timed, mark it, then fix every lost mark'
+    ]
+  }
+};

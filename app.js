@@ -3,6 +3,9 @@
 
   var KEY = 'examtracker.v1';
   var NON_STUDY = { break: 1, recall: 1 };
+  var LAST_DAY = '2026-12-06';
+  // Most extra catch-up minutes a day can take on top of its own plan.
+  var CAP = { 'Diwali sprint': 90, 'Light day': 45, 'School day': 60, 'Weekend': 120, 'Study day': 120 };
 
   // ---------- plan parsing ----------
   function parsePlan(text) {
@@ -16,7 +19,7 @@
       var rest = line.slice(1).split('|').map(function (s) { return s.trim(); });
       if (c === '@') { week = { title: rest[0], range: rest[1], note: rest[2] }; return; }
       if (c === '#') {
-        day = { date: rest[0], label: rest[1], kind: rest[2], hours: rest[3], note: '', tip: '', items: [], week: week };
+        day = { date: rest[0], label: rest[1], kind: rest[2], note: '', tip: '', items: [], week: week };
         days.push(day);
         return;
       }
@@ -37,16 +40,43 @@
     return days;
   }
 
+  // Put the two daily Maths slots right after the recall block of each day.
+  function addMaths(days) {
+    days.forEach(function (d) {
+      var slots = [];
+      [['add', 'ma'], ['intl', 'mi']].forEach(function (pair) {
+        var m = MATHS[pair[0]];
+        var idx = -1, k = 0;
+        days.forEach(function (x) {
+          if (!CAP[x.kind] || x.date < m.from || x.date > m.to) return;
+          if (x.date === d.date) idx = k;
+          k++;
+        });
+        if (idx >= 0 && m.slots[idx]) {
+          slots.push({ id: d.date + ':' + pair[1], name: m.name, min: m.min, text: m.slots[idx], type: 'topic' });
+        }
+      });
+      if (!slots.length) return;
+      slots.push({ id: d.date + ':mb', name: 'Break', min: 15, text: '', type: 'break' });
+      var at = d.items.length && d.items[0].type === 'recall' ? 1 : 0;
+      Array.prototype.splice.apply(d.items, [at, 0].concat(slots));
+    });
+  }
+
   var DAYS = parsePlan(PLAN_TEXT);
+  addMaths(DAYS);
+  var DAY_BY_DATE = {};
+  DAYS.forEach(function (d) { DAY_BY_DATE[d.date] = d; });
 
   // ---------- state ----------
   function loadState() {
-    try {
-      var s = JSON.parse(localStorage.getItem(KEY));
-      if (s && s.done) return s;
-    } catch (e) { /* storage unavailable */ }
-    // Biology Topic 1 was already done when the plan was made.
-    return { done: { '2026-11-09:0': true } };
+    var s = null;
+    try { s = JSON.parse(localStorage.getItem(KEY)); } catch (e) { /* storage unavailable */ }
+    if (!s || !s.done) s = { done: { '2026-11-09:0': true } }; // Biology Topic 1 was already done
+    s.dropped = s.dropped || {};
+    s.clearBy = s.clearBy || {};
+    s.assign = s.assign || {};
+    return s;
   }
   var state = loadState();
   function save() {
@@ -65,6 +95,7 @@
     return new Date(+p[0], +p[1] - 1, +p[2]);
   }
   function todayDate() {
+    if (window.__TODAY) return toDate(window.__TODAY); // test hook
     var n = new Date();
     return new Date(n.getFullYear(), n.getMonth(), n.getDate());
   }
@@ -72,6 +103,10 @@
     var m = d.getMonth() + 1;
     var day = d.getDate();
     return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+  function addDays(iso, n) {
+    var d = toDate(iso);
+    return isoOf(new Date(d.getFullYear(), d.getMonth(), d.getDate() + n));
   }
   function daysBetween(a, b) { return Math.round((b - a) / 864e5); }
   function fmt(min) {
@@ -86,16 +121,134 @@
     if (n === 1) return '1 day';
     return n + ' days';
   }
+  function shortDate(iso) {
+    return toDate(iso).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  }
 
-  function dayStats(day) {
-    var total = 0, done = 0, left = 0;
-    day.items.forEach(function (it) {
-      if (NON_STUDY[it.type]) { if (!isDone(it) && it.type === 'recall') left++; return; }
+  // ---------- catch-up engine ----------
+  function accepts(ex, it) {
+    if (ex.only === 'listen') return it.type === 'listen';
+    if (ex.skip === 'listen' && it.type === 'listen') return false;
+    if (ex.match && it.type === 'topic') return ex.match.test(it.text);
+    return true;
+  }
+
+  // Last day an item may be done, from the exam table (3 days before the paper for topics).
+  function deadlineOf(it, origIso) {
+    var c = EXAMS.filter(function (e) { return e.subject === it.name && accepts(e, it); })
+      .sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+    if (!c.length) return LAST_DAY;
+    var ex;
+    if (/^Past paper/.test(it.text)) {
+      ex = c.filter(function (e) { return e.date > origIso; })[0] || c[c.length - 1];
+      return addDays(ex.date, -1);
+    }
+    ex = c.filter(function (e) { return e.doneBy && e.doneBy >= origIso; })[0] ||
+      c.filter(function (e) { return e.date > origIso; })[0] || c[c.length - 1];
+    return ex.doneBy || addDays(ex.date, -1);
+  }
+
+  // Moves every missed item to a later day. Rules:
+  // 1. Never past the item's Done by date.
+  // 2. Spread across days, least loaded first, so no day is doubled up.
+  // 3. Each day takes only a capped amount of extra work.
+  // 4. Every item is promised a clear-by date: 5 days after it was first missed
+  //    for a small backlog (up to 5 h), 7 days for a larger one.
+  function buildSchedule() {
+    var T = isoOf(todayDate());
+    var s = { moved: {}, byDay: {}, extra: {}, overdue: [], total: 0, clearBy: null, overMin: 0, unplaced: [] };
+    var capDays = DAYS.filter(function (d) { return d.date >= T && CAP[d.kind]; });
+    capDays.forEach(function (d) { s.extra[d.date] = 0; });
+
+    DAYS.forEach(function (d) {
+      if (d.date >= T) return;
+      d.items.forEach(function (it) {
+        if (NON_STUDY[it.type] || isDone(it) || state.dropped[it.id]) return;
+        s.overdue.push({ it: it, from: d });
+        s.total += it.min;
+      });
+    });
+
+    var windowDays = s.total <= 300 ? 4 : 6;
+    s.overdue.forEach(function (e) {
+      if (!state.clearBy[e.it.id]) state.clearBy[e.it.id] = addDays(T, windowDays);
+    });
+
+    function place(e, d) {
+      s.moved[e.it.id] = d.date;
+      (s.byDay[d.date] = s.byDay[d.date] || []).push(e);
+      s.extra[d.date] += e.it.min;
+      state.assign[e.it.id] = d.date;
+      if (!s.clearBy || d.date > s.clearBy) s.clearBy = d.date;
+    }
+
+    // Keep earlier placements that are still valid so ticking a box does not shuffle the plan.
+    var fresh = [];
+    s.overdue.forEach(function (e) {
+      var a = state.assign[e.it.id];
+      var d = a && capDays.filter(function (x) { return x.date === a; })[0];
+      if (d) place(e, d); else fresh.push(e);
+    });
+
+    fresh.forEach(function (e) {
+      var dl = deadlineOf(e.it, e.from.date);
+      var cb = state.clearBy[e.it.id];
+      e.dl = cb < dl ? cb : dl;
+    });
+    fresh.sort(function (a, b) {
+      return a.dl < b.dl ? -1 : a.dl > b.dl ? 1 : (a.from.date < b.from.date ? -1 : a.from.date > b.from.date ? 1 : 0);
+    });
+    fresh.forEach(function (e) {
+      var elig = capDays.filter(function (d) { return d.date <= e.dl; });
+      if (!elig.length) elig = capDays.slice(0, 1);
+      if (!elig.length) { s.unplaced.push(e); return; }
+      var fits = elig.filter(function (d) { return s.extra[d.date] + e.it.min <= CAP[d.kind]; });
+      var pool = fits.length ? fits : elig;
+      var best = pool[0];
+      pool.forEach(function (d) {
+        var r = (s.extra[d.date] + e.it.min) / CAP[d.kind];
+        var rb = (s.extra[best.date] + e.it.min) / CAP[best.kind];
+        if (r < rb) best = d;
+      });
+      if (!fits.length) s.overMin += e.it.min;
+      place(e, best);
+    });
+
+    Object.keys(s.byDay).forEach(function (k) {
+      s.byDay[k].sort(function (a, b) { return a.from.date < b.from.date ? -1 : a.from.date > b.from.date ? 1 : 0; });
+    });
+    save();
+    return s;
+  }
+
+  var SCHED = null;
+
+  // ---------- day maths ----------
+  function catchUp(day) { return SCHED.byDay[day.date] || []; }
+
+  function dayStats(day, withCatch) {
+    var all = day.items.slice();
+    if (withCatch) catchUp(day).forEach(function (e) { all.push(e.it); });
+    var total = 0, done = 0, left = 0, practice = 0, catchMin = 0;
+    all.forEach(function (it) {
+      if (it.type === 'break') return;
+      if (it.type === 'recall') { if (!isDone(it)) left++; return; }
       total += it.min;
+      if (it.type === 'practice' || it.type === 'listen' || /^Past paper/.test(it.text)) practice += it.min;
       if (isDone(it)) done += it.min; else left++;
     });
-    var hasWork = day.items.some(function (it) { return it.type !== 'break'; });
-    return { total: total, done: done, complete: hasWork && left === 0, hasWork: hasWork };
+    if (withCatch) catchUp(day).forEach(function (e) { catchMin += e.it.min; });
+    var hasWork = all.some(function (it) { return it.type !== 'break'; });
+    return { total: total, done: done, complete: hasWork && left === 0, hasWork: hasWork, practice: practice, catchMin: catchMin };
+  }
+
+  function daySubjects(day) {
+    var out = [];
+    day.items.concat(catchUp(day).map(function (e) { return e.it; })).forEach(function (it) {
+      if (NON_STUDY[it.type] || out.indexOf(it.name) >= 0) return;
+      out.push(it.name);
+    });
+    return out;
   }
 
   function currentDayIndex() {
@@ -111,11 +264,11 @@
     var i = -1;
     DAYS.forEach(function (d, k) { if (d.date <= iso) i = k; });
     if (i < 0) return 0;
-    var todayStats = DAYS[i].date === iso ? dayStats(DAYS[i]) : null;
-    if (todayStats && todayStats.hasWork && !todayStats.complete) i--;
+    var ts = DAYS[i].date === iso ? dayStats(DAYS[i], false) : null;
+    if (ts && ts.hasWork && !ts.complete) i--;
     var n = 0;
     for (; i >= 0; i--) {
-      var s = dayStats(DAYS[i]);
+      var s = dayStats(DAYS[i], false);
       if (!s.hasWork) continue;
       if (!s.complete) break;
       n++;
@@ -127,7 +280,7 @@
     var out = [];
     DAYS.forEach(function (d) {
       d.items.forEach(function (it) {
-        if (it.type === 'break' || it.type === 'recall') return;
+        if (NON_STUDY[it.type]) return;
         if (out.indexOf(it.name) < 0) out.push(it.name);
       });
     });
@@ -139,9 +292,7 @@
     DAYS.forEach(function (d) {
       d.items.forEach(function (it) {
         if (it.name !== ex.subject || NON_STUDY[it.type]) return;
-        if (ex.only === 'listen') { if (it.type !== 'listen') return; }
-        else if (ex.skip === 'listen' && it.type === 'listen') return;
-        else if (ex.match && !(it.type === 'topic' && ex.match.test(it.text))) return;
+        if (!accepts(ex, it)) return;
         total += it.min;
         if (isDone(it)) done += it.min;
       });
@@ -162,50 +313,85 @@
       if (!next && toDate(e.date) >= today) next = e;
     });
     var el = document.getElementById('next-exam');
-    if (!next) { el.textContent = 'All exams are behind you.'; return; }
-    var n = daysBetween(today, toDate(next.date));
-    el.textContent = 'Next: ' + next.name + ' in ' + dayLabel(n);
+    var txt = next ? 'Next: ' + next.name + ' in ' + dayLabel(daysBetween(today, toDate(next.date))) : 'All exams are behind you.';
+    if (SCHED.total) txt += ' · Backlog ' + fmt(SCHED.total);
+    el.textContent = txt;
+  }
+
+  function backlogBanner() {
+    if (!SCHED.total) return '';
+    var h = '<div class="catch"><strong>Backlog: ' + fmt(SCHED.total) + ' across ' + SCHED.overdue.length + ' items.</strong> ' +
+      'It is spread over the next days and clears by ' + esc(SCHED.clearBy ? shortDate(SCHED.clearBy) : 'the end of the plan') + '.';
+    if (SCHED.overMin) {
+      h += ' <span class="warn">' + fmt(SCHED.overMin) + ' does not fit the catch-up room before its deadline, so some days run heavy. Drop what is least useful.</span>';
+    }
+    if (SCHED.unplaced.length) {
+      h += ' <span class="warn">' + SCHED.unplaced.length + ' items have no day left. Drop them or do them in the free days.</span>';
+    }
+    return h + '</div>';
+  }
+
+  function rowHtml(it, opts) {
+    opts = opts || {};
+    var cls = 'row ' + (it.type === 'break' ? 'break ' : '') + (isDone(it) ? 'done' : '');
+    var tag = '';
+    if (it.type === 'practice') tag = '<span class="tag">practice</span>';
+    else if (it.type === 'listen') tag = '<span class="tag">listening</span>';
+    else if (it.type === 'recall') tag = '<span class="tag">recall</span>';
+    if (opts.from) tag += '<span class="tag tag-moved">from ' + esc(opts.from) + '</span>';
+    if (!isDone(it) && opts.movedTo) tag += '<span class="tag tag-moved">moved to ' + esc(opts.movedTo) + '</span>';
+    if (!isDone(it) && opts.dropped) tag += '<span class="tag">dropped</span>';
+    var name = it.type === 'recall' ? 'Recall' : it.name;
+    var body = it.text ? '<br>' + esc(it.text) : '';
+    var drop = opts.drop ? '<button class="linkbtn" data-drop="' + esc(it.id) + '">Drop</button>' : '';
+    return '<li class="' + cls + '"><label><input type="checkbox" data-id="' + esc(it.id) + '"' + (isDone(it) ? ' checked' : '') + '>' +
+      '<span class="txt"><span class="sub">' + esc(name) + '</span>' + tag + body + '</span></label>' +
+      '<span class="min">' + it.min + ' min' + drop + '</span></li>';
   }
 
   function renderToday() {
     var day = DAYS[selected];
-    var st = dayStats(day);
+    var st = dayStats(day, true);
     var iso = isoOf(todayDate());
     var isToday = day.date === iso;
-    var quote = QUOTES[(toDate(day.date).getDate() + toDate(day.date).getMonth() * 3) % QUOTES.length];
+    var isPast = day.date < iso;
+    var dd = toDate(day.date);
+    var quote = QUOTES[(dd.getDate() + dd.getMonth() * 3) % QUOTES.length];
+    var hours = st.hasWork ? fmt(st.total) : 'Free';
+    var subs = daySubjects(day);
 
     var html = '<div class="daynav">' +
       '<button class="iconbtn" data-nav="-1" aria-label="Previous day"' + (selected === 0 ? ' disabled' : '') + '>&lsaquo;</button>' +
       '<div class="title"><h2>' + esc(day.label) + (isToday ? ' (today)' : '') + '</h2>' +
-      '<p class="muted">' + esc(day.kind) + ' &middot; ' + esc(day.hours) + '</p></div>' +
+      '<p class="muted">' + esc(day.kind) + ' &middot; ' + hours + (st.catchMin ? ' &middot; includes ' + fmt(st.catchMin) + ' catch-up' : '') + '</p></div>' +
       (isToday ? '' : '<button class="textbtn" data-nav="today">Today</button>') +
       '<button class="iconbtn" data-nav="1" aria-label="Next day"' + (selected === DAYS.length - 1 ? ' disabled' : '') + '>&rsaquo;</button>' +
       '</div>';
 
-    if (day.note) {
-      html += '<p class="note' + (/^Exams? /.test(day.note) ? ' exam' : ' muted') + '">' + esc(day.note) + '</p>';
-    }
+    if (day.note) html += '<p class="note exam">' + esc(day.note) + '</p>';
+    if (subs.length) html += '<p class="note muted">' + esc(subs.join(', ')) + '. Study ' + fmt(st.total - st.practice) + ', practice ' + fmt(st.practice) + '.</p>';
     if (day.tip) html += '<p class="note">' + esc(day.tip) + '</p>';
+    if (isToday || !isPast) html += backlogBanner();
 
     if (st.hasWork) {
       html += '<div class="stat"><span>' + fmt(st.done) + ' of ' + fmt(st.total) + '</span><span>' + pct(st.done, st.total) + '%</span></div>' +
         '<div class="bar"><i style="width:' + pct(st.done, st.total) + '%"></i></div>';
-      if (st.complete) {
-        html += '<div class="banner">Day done. Close the books, and be in bed early.</div>';
-      } else {
-        html += '<div class="quote">' + esc(quote) + '</div>';
-      }
+      if (st.complete) html += '<div class="banner">Day done. Close the books, and be in bed early.</div>';
+      else html += '<div class="quote">' + esc(quote) + '</div>';
+
       html += '<ul class="list">';
       day.items.forEach(function (it) {
-        var cls = 'row ' + (it.type === 'break' ? 'break ' : '') + (isDone(it) ? 'done' : '');
-        var tag = it.type === 'practice' ? '<span class="tag">practice</span>' : it.type === 'listen' ? '<span class="tag">listening</span>' : it.type === 'recall' ? '<span class="tag">recall</span>' : '';
-        var name = it.type === 'recall' ? 'Recall' : it.name;
-        html += '<li class="' + cls + '"><label><input type="checkbox" data-id="' + esc(it.id) + '"' + (isDone(it) ? ' checked' : '') + '>' +
-          '<span class="txt"><span class="sub">' + esc(name) + '</span>' + tag +
-          (it.text && it.type !== 'recall' ? '<br>' + esc(it.text) : it.type === 'recall' ? '<br>' + esc(it.text) : '') + '</span></label>' +
-          '<span class="min">' + it.min + ' min</span></li>';
+        var mv = SCHED.moved[it.id];
+        html += rowHtml(it, { movedTo: isPast && mv && shortDate(mv), dropped: isPast && state.dropped[it.id] });
       });
       html += '</ul>';
+
+      var cu = catchUp(day);
+      if (cu.length) {
+        html += '<h2>Catch-up from earlier days</h2><p class="muted">Moved here by the planner. Each one is placed before its Done by date.</p><ul class="list">';
+        cu.forEach(function (e) { html += rowHtml(e.it, { from: shortDate(e.from.date).replace(/^\w+ /, ''), drop: true }); });
+        html += '</ul>';
+      }
     } else {
       html += '<div class="quote">No new topics. Use the time for past papers, Maths and the topics your practice slots showed were weak.</div>';
     }
@@ -214,17 +400,18 @@
 
   function renderPlan() {
     var iso = isoOf(todayDate());
-    var html = '';
+    var html = backlogBanner();
     var lastWeek = null;
     DAYS.forEach(function (d, i) {
       if (d.week !== lastWeek) {
         lastWeek = d.week;
         html += '<div class="week"><h2>' + esc(d.week.title) + '</h2><p class="muted">' + esc(d.week.range) + ' &middot; ' + esc(d.week.note) + '</p></div>';
       }
-      var st = dayStats(d);
+      var st = dayStats(d, true);
       var p = st.hasWork ? pct(st.done, st.total) + '%' : '';
+      var extra = st.catchMin ? ' &middot; +' + fmt(st.catchMin) + ' catch-up' : '';
       html += '<button class="dayrow' + (d.date === iso ? ' today' : '') + (st.complete ? ' full' : '') + '" data-day="' + i + '">' +
-        '<span class="d">' + esc(d.label) + '</span><span class="k">' + esc(d.kind) + ' &middot; ' + esc(d.hours) + '</span><span class="p">' + p + '</span></button>';
+        '<span class="d">' + esc(d.label) + '</span><span class="k">' + esc(d.kind) + ' &middot; ' + (st.hasWork ? fmt(st.total) : 'Free') + extra + '</span><span class="p">' + p + '</span></button>';
     });
     html += '<details><summary>Rules for every day</summary><ol>' +
       RULES.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ol></details>';
@@ -237,11 +424,11 @@
     EXAMS.slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; }).forEach(function (e) {
       var n = daysBetween(today, toDate(e.date));
       var past = n < 0;
-      var meta = toDate(e.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+      var meta = shortDate(e.date);
       if (e.doneBy) {
         var m = daysBetween(today, toDate(e.doneBy));
-        meta += ' &middot; done by ' + toDate(e.doneBy).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) +
-          (m >= 0 ? ' (' + dayLabel(m) + ' left)' : '') + ' &middot; planned ' + esc(e.planned) + ', ' + e.spare + ' spare';
+        meta += ' &middot; done by ' + shortDate(e.doneBy) + (m >= 0 ? ' (' + dayLabel(m) + ' left)' : '') +
+          (e.planned ? ' &middot; planned ' + esc(e.planned) + ', ' + e.spare + ' spare' : '');
       } else if (!e.subject) {
         meta += ' &middot; not in this plan';
       }
@@ -261,7 +448,7 @@
     var total = 0, done = 0, daysDone = 0, daysTotal = 0;
     var bySub = {};
     DAYS.forEach(function (d) {
-      var st = dayStats(d);
+      var st = dayStats(d, false);
       if (st.hasWork) { daysTotal++; if (st.complete) daysDone++; }
       d.items.forEach(function (it) {
         if (NON_STUDY[it.type]) return;
@@ -275,8 +462,20 @@
       '<div class="stat"><span class="big">' + pct(done, total) + '%</span><span class="muted" style="align-self:flex-end">' + fmt(done) + ' of ' + fmt(total) + '</span></div>' +
       '<div class="bar"><i style="width:' + pct(done, total) + '%"></i></div>' +
       '<div class="grid"><div class="card"><div class="big">' + daysDone + '/' + daysTotal + '</div><p class="muted">days completed</p></div>' +
-      '<div class="card"><div class="big">' + streak() + '</div><p class="muted">day streak</p></div></div>' +
-      '<h2>By subject</h2>';
+      '<div class="card"><div class="big">' + streak() + '</div><p class="muted">day streak</p></div>' +
+      '<div class="card"><div class="big">' + fmt(SCHED.total) + '</div><p class="muted">backlog' + (SCHED.clearBy ? ', clears by ' + esc(shortDate(SCHED.clearBy)) : '') + '</p></div></div>';
+
+    var dropped = [];
+    DAYS.forEach(function (d) { d.items.forEach(function (it) { if (state.dropped[it.id]) dropped.push({ it: it, d: d }); }); });
+    if (dropped.length) {
+      html += '<h2>Dropped</h2>';
+      dropped.forEach(function (x) {
+        html += '<div class="card"><div class="head"><span class="name">' + esc(x.it.name) + ' &middot; ' + x.it.min + ' min</span>' +
+          '<button class="linkbtn" data-restore="' + esc(x.it.id) + '">Restore</button></div><p class="muted meta">' + esc(x.d.label) + '. ' + esc(x.it.text) + '</p></div>';
+      });
+    }
+
+    html += '<h2>By subject</h2>';
     subjectNames().forEach(function (n) {
       var s = bySub[n];
       html += '<div class="card"><div class="head"><span class="name">' + esc(n) + '</span><span class="muted">' + pct(s.done, s.total) + '%</span></div>' +
@@ -288,6 +487,8 @@
 
   function render() {
     var y = window.scrollY;
+    SCHED = buildSchedule();
+    window.__SCHED = SCHED; // read by tests
     if (tab === 'today') renderToday();
     else if (tab === 'plan') renderPlan();
     else if (tab === 'exams') renderExams();
@@ -315,6 +516,22 @@
   });
 
   view.addEventListener('click', function (e) {
+    var drop = e.target.closest('[data-drop]');
+    if (drop) {
+      state.dropped[drop.getAttribute('data-drop')] = true;
+      save();
+      render();
+      return;
+    }
+    var restore = e.target.closest('[data-restore]');
+    if (restore) {
+      var rid = restore.getAttribute('data-restore');
+      delete state.dropped[rid];
+      delete state.assign[rid];
+      save();
+      render();
+      return;
+    }
     var nav = e.target.closest('[data-nav]');
     if (nav) {
       var v = nav.getAttribute('data-nav');
