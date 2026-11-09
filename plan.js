@@ -349,15 +349,15 @@ const EXAMS = [
   { name: 'Biology', date: '2026-11-25', doneBy: '2026-11-22', planned: 'Sat 14 Nov', spare: 8, subject: 'Biology' },
   { name: 'ICT', date: '2026-11-26', doneBy: '2026-11-23', planned: 'Sat 14 Nov', spare: 9, subject: 'ICT' },
   { name: 'Hindi P1', date: '2026-11-27', doneBy: '2026-11-24', planned: 'Mon 23 Nov', spare: 1, subject: 'Hindi', skip: 'listen' },
-  { name: 'Additional Maths P1', date: '2026-11-27', doneBy: '2026-11-24', planned: 'Mon 23 Nov', spare: 1, subject: 'Additional Maths', match: /^(Topic|Past paper P1)/ },
+  { name: 'Additional Maths P1', date: '2026-11-27', doneBy: '2026-11-24', subject: 'Additional Maths' },
   { name: 'English Literature P1', date: '2026-12-01', doneBy: '2026-11-28', planned: 'Fri 27 Nov', spare: 1, subject: 'English Literature', match: /^Paper 1/ },
-  { name: 'Additional Maths P2', date: '2026-12-01', doneBy: '2026-11-28', planned: 'Mon 23 Nov', spare: 5, subject: 'Additional Maths', match: /^(Topic|Past paper)/ },
+  { name: 'Additional Maths P2', date: '2026-12-01', doneBy: '2026-11-28', subject: 'Additional Maths' },
   { name: 'English Language P1', date: '2026-12-02', doneBy: '2026-11-29', planned: 'Sat 28 Nov', spare: 1, subject: 'English Language', match: /^(Paper 1|Papers 1 and 2|Writing)/ },
   { name: 'Hindi P2 listening', date: '2026-12-02', doneBy: '2026-11-29', planned: 'Sun 29 Nov', spare: 0, subject: 'Hindi', only: 'listen' },
   { name: 'Physics', date: '2026-12-03', doneBy: '2026-11-30', planned: 'Sun 29 Nov', spare: 1, subject: 'Physics' },
   { name: 'English Language P2', date: '2026-12-04', doneBy: '2026-12-01', planned: 'Sun 29 Nov', spare: 2, subject: 'English Language', match: /^(Paper 2|Papers 1 and 2)/ },
-  { name: 'International Maths P2 and P6', date: '2026-12-07', doneBy: '2026-12-04', planned: 'Sat 28 Nov', spare: 6, subject: 'International Maths', match: /^(Topic|Past paper P[26])/ },
-  { name: 'International Maths P4', date: '2026-12-08', doneBy: '2026-12-05', planned: 'Sat 28 Nov', spare: 7, subject: 'International Maths', match: /^(Topic|Past paper P4)/ },
+  { name: 'International Maths P2 and P6', date: '2026-12-07', doneBy: '2026-12-04', subject: 'International Maths' },
+  { name: 'International Maths P4', date: '2026-12-08', doneBy: '2026-12-05', subject: 'International Maths' },
   { name: 'English Literature P3 Drama', date: '2026-12-08', doneBy: '2026-12-05', planned: 'Thu 3 Dec', spare: 2, subject: 'English Literature', match: /^Paper 3/ },
   { name: 'ICT Practical P3', date: '2026-12-09' },
   { name: 'Chemistry', date: '2026-12-10', doneBy: '2026-12-07', planned: 'Sun 6 Dec', spare: 1, subject: 'Chemistry' }
@@ -396,68 +396,9 @@ const QUOTES = [
   'Diwali sprint now, easy school days later. The effort pays off.'
 ];
 
-// Daily Maths slots. One entry per plan day from "from" to "to" (free days are skipped).
-// These topic lists follow the usual Cambridge IGCSE order. Edit them to match your own syllabus.
+// Daily Maths slots: one per plan day from "from" to "to" (free days are skipped).
+// Only the subject and minutes are shown. You manage the topics yourself.
 const MATHS = {
-  add: {
-    name: 'Additional Maths', min: 60, from: '2026-11-09', to: '2026-12-01',
-    slots: [
-      'Topic: Functions (domain, range, composite and inverse functions)',
-      'Topic: Quadratic functions (completing the square, discriminant, graphs and inequalities)',
-      'Topic: Equations, inequalities and graphs (modulus, factor and remainder theorems, cubics)',
-      'Topic: Simultaneous equations (linear with quadratic, where a line meets a curve)',
-      'Topic: Logarithmic and exponential functions (laws, solving equations, ln and e)',
-      'Topic: Straight-line graphs (linear laws, turning y = ax^n and y = Ab^x into y = mx + c)',
-      'Topic: Coordinate geometry (gradient, midpoint, perpendicular bisector, equation of a circle)',
-      'Topic: Circular measure (radians, arc length, sector area)',
-      'Topic: Trigonometry (1/2): exact values, graphs, amplitude and period',
-      'Topic: Trigonometry (2/2): identities, solving equations, reciprocal functions',
-      'Topic: Permutations and combinations',
-      'Topic: Binomial expansion',
-      'Topic: Vectors in two dimensions (magnitude, position vectors, geometry proofs)',
-      'Topic: Differentiation (rules, tangents and normals, stationary points, rates of change)',
-      'Topic: Integration and kinematics (reverse differentiation, area under a curve, velocity and acceleration)',
-      'Past paper P1 (1/3): timed, mark it, then fix every lost mark',
-      'Past paper P1 (2/3): timed, mark it, then fix every lost mark',
-      'Past paper P1 (3/3): timed, mark it, then fix every lost mark',
-      'Past paper P2 (1/5): timed, mark it, then fix every lost mark',
-      'Past paper P2 (2/5): timed, mark it, then fix every lost mark',
-      'Past paper P2 (3/5): timed, mark it, then fix every lost mark',
-      'Past paper P2 (4/5): timed, mark it, then fix every lost mark',
-      'Past paper P2 (5/5): timed, mark it, then fix every lost mark'
-    ]
-  },
-  intl: {
-    name: 'International Maths', min: 30, from: '2026-11-09', to: '2026-12-06',
-    slots: [
-      'Topic: Number (1/3): types of number, HCF and LCM, fractions, decimals, percentages',
-      'Topic: Number (2/3): ratio, proportion, rates, indices and standard form',
-      'Topic: Number (3/3): limits of accuracy, compound interest, growth and decay',
-      'Topic: Algebra (1/5): expressions, expanding, factorising, algebraic fractions',
-      'Topic: Algebra (2/5): linear and quadratic equations, rearranging formulae',
-      'Topic: Algebra (3/5): simultaneous equations, inequalities, linear programming',
-      'Topic: Algebra (4/5): sequences, nth term, direct and inverse proportion',
-      'Topic: Algebra (5/5): functions and function notation',
-      'Topic: Graphs of functions (1/2): linear, quadratic, cubic, reciprocal and exponential graphs',
-      'Topic: Graphs of functions (2/2): gradients, tangents, differentiation, turning points',
-      'Topic: Coordinate geometry (gradient, midpoint, length, equation of a line)',
-      'Topic: Geometry (1/3): angle rules, polygons, parallel lines, symmetry',
-      'Topic: Geometry (2/3): circle theorems',
-      'Topic: Geometry (3/3): similarity, congruence, constructions, loci',
-      'Topic: Mensuration (perimeter, area, volume, surface area, arc and sector)',
-      'Topic: Trigonometry (1/2): right-angled triangles, Pythagoras, bearings',
-      'Topic: Trigonometry (2/2): sine rule, cosine rule, area of a triangle, 3D problems',
-      'Topic: Transformations and vectors',
-      'Topic: Probability (tree diagrams, Venn diagrams, conditional probability)',
-      'Topic: Statistics (averages, cumulative frequency, histograms, scatter graphs)',
-      'Past paper P2 (1/3): timed, mark it, then fix every lost mark',
-      'Past paper P4 (1/3): timed, mark it, then fix every lost mark',
-      'Past paper P6 (1/2): timed, mark it, then fix every lost mark',
-      'Past paper P2 (2/3): timed, mark it, then fix every lost mark',
-      'Past paper P4 (2/3): timed, mark it, then fix every lost mark',
-      'Past paper P6 (2/2): timed, mark it, then fix every lost mark',
-      'Past paper P2 (3/3): timed, mark it, then fix every lost mark',
-      'Past paper P4 (3/3): timed, mark it, then fix every lost mark'
-    ]
-  }
+  add: { name: 'Additional Maths', min: 60, from: '2026-11-09', to: '2026-12-01' },
+  intl: { name: 'International Maths', min: 30, from: '2026-11-09', to: '2026-12-06' }
 };

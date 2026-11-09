@@ -52,8 +52,8 @@
           if (x.date === d.date) idx = k;
           k++;
         });
-        if (idx >= 0 && m.slots[idx]) {
-          slots.push({ id: d.date + ':' + pair[1], name: m.name, min: m.min, text: m.slots[idx], type: 'topic' });
+        if (idx >= 0) {
+          slots.push({ id: d.date + ':' + pair[1], name: m.name, min: m.min, text: '', type: 'topic' });
         }
       });
       if (!slots.length) return;
