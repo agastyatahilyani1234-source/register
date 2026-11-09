@@ -397,8 +397,8 @@ const QUOTES = [
 ];
 
 // Daily Maths slots: one per plan day from "from" to "to" (free days are skipped).
-// Only the subject and minutes are shown. You manage the topics yourself.
+// On school days the slots are shorter (school minutes). Only the subject and minutes are shown. You manage the topics yourself.
 const MATHS = {
-  add: { name: 'Additional Maths', min: 60, from: '2026-11-09', to: '2026-12-01' },
-  intl: { name: 'International Maths', min: 30, from: '2026-11-09', to: '2026-12-06' }
+  add: { name: 'Additional Maths', min: 60, school: 30, from: '2026-11-09', to: '2026-12-01' },
+  intl: { name: 'International Maths', min: 30, school: 15, from: '2026-11-09', to: '2026-12-06' }
 };

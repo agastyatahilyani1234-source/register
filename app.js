@@ -5,7 +5,7 @@
   var NON_STUDY = { break: 1, recall: 1 };
   var LAST_DAY = '2026-12-06';
   // Most extra catch-up minutes a day can take on top of its own plan.
-  var CAP = { 'Diwali sprint': 90, 'Light day': 45, 'School day': 60, 'Weekend': 120, 'Study day': 120 };
+  var CAP = { 'Diwali sprint': 90, 'Light day': 45, 'School day': 30, 'Weekend': 120, 'Study day': 120 };
 
   // ---------- plan parsing ----------
   function parsePlan(text) {
@@ -53,7 +53,7 @@
           k++;
         });
         if (idx >= 0) {
-          slots.push({ id: d.date + ':' + pair[1], name: m.name, min: m.min, text: '', type: 'topic' });
+          slots.push({ id: d.date + ':' + pair[1], name: m.name, min: (d.kind === 'School day' && m.school) ? m.school : m.min, text: '', type: 'topic' });
         }
       });
       if (!slots.length) return;
