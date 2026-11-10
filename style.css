@@ -101,3 +101,16 @@ details li { margin: 6px 0; }
 
 .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .textbtn.solid { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.top-right { display: flex; align-items: center; gap: 14px; }
+.undo { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; max-width: 150px; }
+.undo .muted { font-size: 0.72rem; text-align: right; line-height: 1.2; overflow-wrap: anywhere; }
+.textbtn:disabled { opacity: 0.4; cursor: default; }
+.sheet { list-style: none; border-bottom: 1px solid var(--line); }
+.sheet-in { background: var(--soft); border-radius: var(--radius); padding: 12px 14px; margin: 6px 0 12px; }
+.sheet-in h3 { margin: 0 0 4px; font-size: 0.95rem; }
+.sheet-in .fl { display: block; margin: 12px 0 6px; font-size: 0.82rem; color: var(--muted); }
+.sheet-in select, .sheet-in input { font: inherit; padding: 7px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); max-width: 100%; }
+.sheet-in input { width: 100%; margin-bottom: 6px; }
+.sheet-in select { flex: 1; min-width: 0; }
+.sheet-in .actions { margin-top: 6px; }

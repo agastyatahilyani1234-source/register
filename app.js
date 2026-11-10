@@ -66,20 +66,52 @@
   var DAYS = parsePlan(PLAN_TEXT);
   addMaths(DAYS);
   var DAY_BY_DATE = {};
-  DAYS.forEach(function (d) { DAY_BY_DATE[d.date] = d; });
+  var ITEM_BY_ID = {};
+  DAYS.forEach(function (d) {
+    DAY_BY_DATE[d.date] = d;
+    d.items.forEach(function (it) {
+      it.o = { name: it.name, min: it.min, text: it.text };
+      ITEM_BY_ID[it.id] = it;
+    });
+  });
 
   // ---------- state ----------
   function loadState() {
     var s = null;
     try { s = JSON.parse(localStorage.getItem(KEY)); } catch (e) { /* storage unavailable */ }
     if (!s || !s.done) s = { done: { '2026-11-09:0': true } }; // Biology Topic 1 was already done
+    return normalize(s);
+  }
+  function normalize(s) {
     s.dropped = s.dropped || {};
     s.deferred = s.deferred || {};
     s.clearBy = s.clearBy || {};
     s.assign = s.assign || {};
+    s.pin = s.pin || {};
+    s.edits = s.edits || {};
     return s;
   }
   var state = loadState();
+  var hist = [];
+  var menu = null;
+
+  // Every change goes through mutate so the Undo button can step back.
+  function mutate(label, fn) {
+    hist.push({ label: label, snap: JSON.stringify(state) });
+    if (hist.length > 60) hist.shift();
+    fn();
+    save();
+    render();
+  }
+  function applyEdits() {
+    Object.keys(ITEM_BY_ID).forEach(function (id) {
+      var it = ITEM_BY_ID[id];
+      var e = state.edits[id] || {};
+      it.name = e.name != null ? e.name : it.o.name;
+      it.text = e.text != null ? e.text : it.o.text;
+      it.min = e.min != null ? e.min : it.o.min;
+    });
+  }
   function save() {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
   }
@@ -126,6 +158,34 @@
     return toDate(iso).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
   }
 
+  // ---------- moves made by hand ----------
+  function origDate(it) { return it.id.split(':')[0]; }
+  // The day you moved an item to, if that is still a valid later day.
+  function pinDate(it, day) {
+    var p = state.pin[it.id];
+    var T = isoOf(todayDate());
+    return p && p >= T && p !== day.date && DAY_BY_DATE[p] ? p : null;
+  }
+  // Moved off its own day by you or by "move the rest of today".
+  function shifted(it, day) { return !!state.deferred[it.id] || !!pinDate(it, day); }
+  function effectiveDate(it) { return SCHED.moved[it.id] || origDate(it); }
+  function itemsOnDay(date) {
+    var d = DAY_BY_DATE[date];
+    var out = [];
+    if (d) d.items.forEach(function (it) {
+      if (NON_STUDY[it.type] || isDone(it) || (SCHED.moved[it.id] && SCHED.moved[it.id] !== date)) return;
+      out.push(it);
+    });
+    (SCHED.byDay[date] || []).forEach(function (e) { if (!isDone(e.it)) out.push(e.it); });
+    return out;
+  }
+  function setPin(it, date) {
+    if (date < isoOf(todayDate())) return;
+    if (origDate(it) === date) delete state.pin[it.id]; else state.pin[it.id] = date;
+    delete state.deferred[it.id];
+    delete state.assign[it.id];
+  }
+
   // ---------- catch-up engine ----------
   function accepts(ex, it) {
     if (ex.only === 'listen') return it.type === 'listen';
@@ -169,6 +229,13 @@
     DAYS.forEach(function (d) {
       d.items.forEach(function (it) {
         if (NON_STUDY[it.type] || isDone(it) || state.dropped[it.id]) return;
+        var pd = pinDate(it, d);
+        if (pd) {
+          (s.byDay[pd] = s.byDay[pd] || []).push({ it: it, from: d, pinned: true });
+          s.moved[it.id] = pd;
+          if (s.extra[pd] != null) s.extra[pd] += it.min;
+          return;
+        }
         if (d.date >= T && !state.deferred[it.id]) return;
         s.overdue.push({ it: it, from: d, minDate: minDateOf(it.id) });
         s.total += it.min;
@@ -236,6 +303,7 @@
     var out = [];
     day.items.concat(catchUp(day).map(function (e) { return e.it; })).forEach(function (it) {
       if (NON_STUDY[it.type] || isDone(it) || state.dropped[it.id] || state.deferred[it.id]) return;
+      if (it.id.split(':')[0] === day.date && pinDate(it, day)) return;
       out.push(it);
     });
     return out;
@@ -245,7 +313,7 @@
   function catchUp(day) { return SCHED.byDay[day.date] || []; }
 
   function dayStats(day, withCatch) {
-    var all = day.items.filter(function (it) { return isDone(it) || !state.deferred[it.id]; });
+    var all = day.items.filter(function (it) { return isDone(it) || !shifted(it, day); });
     if (withCatch) catchUp(day).forEach(function (e) { all.push(e.it); });
     var total = 0, done = 0, left = 0, practice = 0, catchMin = 0;
     all.forEach(function (it) {
@@ -262,7 +330,8 @@
 
   function daySubjects(day) {
     var out = [];
-    day.items.concat(catchUp(day).map(function (e) { return e.it; })).forEach(function (it) {
+    day.items.filter(function (it) { return isDone(it) || !shifted(it, day); })
+      .concat(catchUp(day).map(function (e) { return e.it; })).forEach(function (it) {
       if (NON_STUDY[it.type] || out.indexOf(it.name) >= 0) return;
       out.push(it.name);
     });
@@ -366,9 +435,46 @@
     var name = it.type === 'recall' ? 'Recall' : it.name;
     var body = it.text ? '<br>' + esc(it.text) : '';
     var drop = opts.drop ? '<button class="linkbtn" data-drop="' + esc(it.id) + '">Drop</button>' : '';
+    if (!NON_STUDY[it.type] && !isDone(it)) drop += '<button class="linkbtn" data-menu="' + esc(it.id) + '">Edit</button>';
+    var sheet = menu && menu.id === it.id ? sheetHtml(it) : '';
     return '<li class="' + cls + '"><label><input type="checkbox" data-id="' + esc(it.id) + '"' + (isDone(it) ? ' checked' : '') + '>' +
       '<span class="txt"><span class="sub">' + esc(name) + '</span>' + tag + body + '</span></label>' +
-      '<span class="min">' + it.min + ' min' + drop + '</span></li>';
+      '<span class="min">' + it.min + ' min' + drop + '</span></li>' + sheet;
+  }
+
+  function sheetHtml(it) {
+    var T = isoOf(todayDate());
+    var cur = effectiveDate(it);
+    var days = DAYS.filter(function (d) { return d.date >= T; });
+    function opts(sel) {
+      return days.map(function (d) {
+        return '<option value="' + d.date + '"' + (d.date === sel ? ' selected' : '') + '>' + esc(shortDate(d.date)) + ' (' + esc(d.kind) + ')</option>';
+      }).join('');
+    }
+    var swDay = menu.swDay;
+    if (!swDay) {
+      var other = days.filter(function (d) { return d.date !== cur; })[0];
+      swDay = other ? other.date : cur;
+    }
+    var cands = itemsOnDay(swDay).filter(function (x) { return x.id !== it.id; });
+    var candOpts = cands.length ? cands.map(function (x) {
+      return '<option value="' + esc(x.id) + '">' + esc(x.name) + ', ' + x.min + ' min' + (x.text ? ', ' + esc(x.text.slice(0, 40)) : '') + '</option>';
+    }).join('') : '<option value="">Nothing to swap with on this day</option>';
+    var pinned = state.pin[it.id] ? '<button class="textbtn" data-act="pinreset">Put back where the plan had it</button>' : '';
+    var edited = state.edits[it.id] ? '<button class="textbtn" data-act="edreset">Reset wording and time</button>' : '';
+    return '<li class="sheet"><div class="sheet-in">' +
+      '<h3>Move, swap or edit</h3>' +
+      '<label class="fl">Move to another day</label>' +
+      '<div class="actions"><select id="mv-day">' + opts(cur) + '</select><button class="textbtn solid" data-act="mv">Move</button></div>' +
+      '<label class="fl">Swap with another item</label>' +
+      '<div class="actions"><select id="sw-day">' + opts(swDay) + '</select></div>' +
+      '<div class="actions"><select id="sw-item">' + candOpts + '</select><button class="textbtn solid" data-act="sw">Swap</button></div>' +
+      '<label class="fl">Change this topic</label>' +
+      '<input id="ed-name" type="text" value="' + esc(it.name) + '" aria-label="Subject">' +
+      '<input id="ed-text" type="text" value="' + esc(it.text) + '" aria-label="Topic details" placeholder="Topic details">' +
+      '<input id="ed-min" type="number" min="5" max="600" step="5" value="' + it.min + '" aria-label="Minutes">' +
+      '<div class="actions"><button class="textbtn solid" data-act="ed">Save changes</button>' + edited + pinned + '<button class="textbtn" data-act="close">Close</button></div>' +
+      '</div></li>';
   }
 
   function renderToday() {
@@ -418,13 +524,13 @@
       html += '<ul class="list">';
       day.items.forEach(function (it) {
         var mv = SCHED.moved[it.id];
-        html += rowHtml(it, { movedTo: (isPast || state.deferred[it.id]) && mv && shortDate(mv), dropped: isPast && state.dropped[it.id] });
+        html += rowHtml(it, { movedTo: (isPast || shifted(it, day)) && mv && mv !== day.date && shortDate(mv), dropped: isPast && state.dropped[it.id] });
       });
       html += '</ul>';
 
       var cu = catchUp(day);
       if (cu.length) {
-        html += '<h2>Catch-up from earlier days</h2><p class="muted">Moved here by the planner. Each one is placed before its Done by date.</p><ul class="list">';
+        html += '<h2>Moved here from other days</h2><p class="muted">Placed by the planner or by you. Planner moves stay before their Done by date.</p><ul class="list">';
         cu.forEach(function (e) { html += rowHtml(e.it, { from: shortDate(e.from.date).replace(/^\w+ /, ''), drop: true }); });
         html += '</ul>';
       }
@@ -523,6 +629,7 @@
 
   function render() {
     var y = window.scrollY;
+    applyEdits();
     SCHED = buildSchedule();
     window.__SCHED = SCHED; // read by tests
     if (tab === 'today') renderToday();
@@ -530,6 +637,11 @@
     else if (tab === 'exams') renderExams();
     else renderProgress();
     renderTop();
+    var ub = document.getElementById('undo');
+    if (ub) {
+      ub.disabled = !hist.length;
+      document.getElementById('undo-note').textContent = hist.length ? hist[hist.length - 1].label : '';
+    }
     window.scrollTo(0, y);
   }
 
@@ -544,9 +656,25 @@
   });
 
   view.addEventListener('change', function (e) {
+    if (e.target.id === 'sw-day') {
+      menu.swDay = e.target.value;
+      render();
+      return;
+    }
     var id = e.target.getAttribute('data-id');
     if (!id) return;
-    if (e.target.checked) state.done[id] = true; else delete state.done[id];
+    var checked = e.target.checked;
+    var it0 = ITEM_BY_ID[id];
+    mutate((checked ? 'Ticked ' : 'Unticked ') + (it0 ? it0.name : 'item'), function () {
+      if (checked) state.done[id] = true; else delete state.done[id];
+    });
+  });
+
+  document.getElementById('undo').addEventListener('click', function () {
+    var h = hist.pop();
+    if (!h) return;
+    state = normalize(JSON.parse(h.snap));
+    menu = null;
     save();
     render();
   });
@@ -560,31 +688,78 @@
       else {
         var tday = DAYS[selected];
         var iso0 = isoOf(todayDate());
-        pendingToday(tday).forEach(function (it) {
-          state.deferred[it.id] = iso0;
-          delete state.assign[it.id];
-        });
         confirmDefer = false;
-        save();
+        mutate('Moved the rest of today', function () {
+          pendingToday(tday).forEach(function (it) {
+            state.deferred[it.id] = iso0;
+            delete state.assign[it.id];
+            delete state.pin[it.id];
+          });
+        });
+        return;
       }
       render();
       return;
     }
     var drop = e.target.closest('[data-drop]');
     if (drop) {
-      state.dropped[drop.getAttribute('data-drop')] = true;
-      save();
-      render();
+      var did = drop.getAttribute('data-drop');
+      mutate('Dropped ' + (ITEM_BY_ID[did] ? ITEM_BY_ID[did].name : 'item'), function () { state.dropped[did] = true; });
       return;
     }
     var restore = e.target.closest('[data-restore]');
     if (restore) {
       var rid = restore.getAttribute('data-restore');
-      delete state.dropped[rid];
-      delete state.assign[rid];
-      save();
+      mutate('Restored ' + (ITEM_BY_ID[rid] ? ITEM_BY_ID[rid].name : 'item'), function () {
+        delete state.dropped[rid];
+        delete state.assign[rid];
+      });
+      return;
+    }
+    var mb = e.target.closest('[data-menu]');
+    if (mb) {
+      var mid = mb.getAttribute('data-menu');
+      menu = menu && menu.id === mid ? null : { id: mid };
       render();
       return;
+    }
+    var act = e.target.closest('[data-act]');
+    if (act && menu) {
+      var a0 = act.getAttribute('data-act');
+      var cur = ITEM_BY_ID[menu.id];
+      var val = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+      if (a0 === 'close') { menu = null; render(); return; }
+      if (a0 === 'mv') {
+        var to = val('mv-day');
+        menu = null;
+        mutate('Moved ' + cur.name, function () { setPin(cur, to); });
+        return;
+      }
+      if (a0 === 'sw') {
+        var other = ITEM_BY_ID[val('sw-item')];
+        if (!other) return;
+        var da = effectiveDate(cur), db = effectiveDate(other);
+        menu = null;
+        mutate('Swapped ' + cur.name + ' and ' + other.name, function () { setPin(cur, db); setPin(other, da); });
+        return;
+      }
+      if (a0 === 'ed') {
+        var nm = val('ed-name').trim(), tx = val('ed-text').trim(), mn = parseInt(val('ed-min'), 10);
+        if (!nm || !(mn > 0)) return;
+        menu = null;
+        mutate('Edited ' + cur.name, function () {
+          var o = cur.o;
+          if (nm === o.name && tx === o.text && mn === o.min) delete state.edits[cur.id];
+          else state.edits[cur.id] = { name: nm, text: tx, min: mn };
+        });
+        return;
+      }
+      if (a0 === 'edreset') { menu = null; mutate('Reset ' + cur.name, function () { delete state.edits[cur.id]; }); return; }
+      if (a0 === 'pinreset') {
+        menu = null;
+        mutate('Put back ' + cur.name, function () { delete state.pin[cur.id]; delete state.assign[cur.id]; });
+        return;
+      }
     }
     var nav = e.target.closest('[data-nav]');
     if (nav) {
