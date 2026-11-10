@@ -24,311 +24,275 @@ ICT | 50 | Ch 4 Networks and the effects of using them
 ICT | 30 | practice
 # 2026-11-10 | Tue 10 Nov | Diwali sprint | 7 h 30 min
 Recall | 10
-Physics | 70 | Ch 1 Measurements and units (carried over)
-Break | 15
 Hindi | 65 | स्वास्थ्य (health) (carried over)
 Break | 15
-Physics | 70 | Ch 2 Forces and motion (1/3): speed, velocity, acceleration; distance-time and speed-time graphs
+Chemistry | 45 | Ch 1 States of matter: kinetic particle theory, changes of state, diffusion, heating and cooling curves
+Chemistry | 30 | practice
+Break | 15
+Physics | 70 | Ch 1 Measurements and units (carried over)
+Physics | 30 | practice
 Long break | 45
 Hindi | 55 | ई मेल (email): format and one practice email, using स्वास्थ्य vocabulary
+Break | 15
+Hindi | 80 | पर्यावरण एवं प्राणी जगत (environment and animal world): key vocabulary, reading passage and comprehension questions
+Break | 15
 Hindi | 30 | practice
-Break | 15
-Physics | 80 | Ch 2 Forces and motion (2/3): mass, weight and g, free fall, resultant force and F = ma, friction, terminal velocity
-Break | 15
-Physics | 30 | practice
 Hindi | 45 | listen
 # 2026-11-11 | Wed 11 Nov | Diwali sprint | 7 h 25 min
 Recall | 10
 Biology | 55 | Topic 4 Biological molecules: carbohydrates, proteins, fats, food tests, DNA structure, water
-ICT | 30 | Ch 5 The effects of using IT
-Break | 15
-Biology | 35 | Topic 5 Enzymes: properties, effect of temperature and pH, enzyme experiments
-ICT | 50 | Ch 6 ICT applications
-Break | 15
-Biology | 55 | Topic 6 Plant nutrition: photosynthesis, limiting factors, leaf structure, mineral ions
-ICT | 30 | Ch 7 The systems life cycle
-Long break | 45
-Biology | 65 | Topic 7 Human nutrition: balanced diet, alimentary canal, digestion, absorption, bile
-Break | 15
-ICT | 35 | Ch 8 Safety and security
-ICT | 30 | practice
-Break | 15
-Biology | 50 | Topic 8 Transport in plants: root hairs, xylem, transpiration, phloem and translocation
-Biology | 30 | practice
-# 2026-11-12 | Thu 12 Nov | Diwali sprint | 7 h 25 min
-Recall | 10
-Biology | 70 | Topic 9 Transport in animals: circulatory system, heart, blood vessels, blood components, coronary heart disease
-Break | 15
-ICT | 30 | Ch 9 Audiences and Ch 10 Communication
-Biology | 50 | Topic 10 Diseases and immunity: pathogens, transmission, body defences, vaccination, antibodies
-Break | 15
-ICT | 50 | Ch 11 File management and Ch 12 Images (do the tasks on a computer)
-Biology | 40 | Topic 11 Gas exchange in humans: breathing, alveoli, ventilation, effects of exercise and smoking
-Long break | 45
-ICT | 60 | Ch 13 Layouts, Ch 14 Styles and Ch 15 Proofing (do the tasks on a computer)
-ICT | 30 | practice
-Break | 15
-Biology | 35 | Topic 12 Respiration: aerobic and anaerobic respiration, respiration experiments
-Biology | 30 | practice
-Break | 15
-English Literature | 35 | Paper 1 Prose: The Gold Watch
-English Literature | 30 | practice
-# 2026-11-13 | Fri 13 Nov | Diwali sprint | 6 h 30 min
-Recall | 10
-ICT | 25 | Ch 16 Graphs and charts (do the tasks on a computer)
-Biology | 35 | Topic 13 Excretion in humans: excretory products, kidney structure and function, dialysis
-Break | 15
-ICT | 40 | Ch 17 Document production (do the tasks on a computer)
-Biology | 50 | Topic 14 Coordination and response (1/2): nervous system, reflex arc, sense organs, the eye
-Break | 15
-Biology | 30 | practice
-ICT | 55 | Ch 18 Databases (do the tasks on a computer)
-Long break | 45
-English Language | 40 | Paper 1 Reading: comprehension (question types, own-words answers, inference)
-English Language | 30 | practice
-Break | 15
-ICT | 30 | Ch 19 Presentations (do the tasks on a computer)
-ICT | 30 | practice
-Break | 15
-Hindi | 45 | listen
-# 2026-11-14 | Sat 14 Nov | Diwali sprint | 7 h 15 min
-Recall | 10
-Hindi | 80 | पर्यावरण एवं प्राणी जगत (environment and animal world) (1/2): key vocabulary, reading passage and comprehension questions
 Break | 15
 Hindi | 75 | पत्र (letter): formal and informal formats and one practice letter, using पर्यावरण vocabulary
 Break | 15
-Physics | 50 | Ch 2 Forces and motion (3/3): momentum, impulse, conservation of momentum, circular motion
+Biology | 35 | Topic 5 Enzymes: properties, effect of temperature and pH, enzyme experiments
+Hindi | 55 | पर्यटन (tourism): key vocabulary, reading passage and comprehension questions
 Long break | 45
-Hindi | 55 | पर्यटन (tourism) (1/2): key vocabulary, reading passage and comprehension questions
-Break | 15
-Physics | 60 | Ch 3 Forces and pressure (1/3): moments and the principle of moments, centre of mass, stability, equilibrium
-Physics | 30 | practice
+Biology | 55 | Topic 6 Plant nutrition: photosynthesis, limiting factors, leaf structure, mineral ions
 Break | 15
 Hindi | 65 | भाषण (speech): format, useful phrases and one practice speech, using पर्यटन vocabulary
 Break | 15
 Hindi | 30 | practice
+Break | 15
+Biology | 65 | Topic 7 Human nutrition: balanced diet, alimentary canal, digestion, absorption, bile
+Break | 15
+Biology | 30 | practice
+# 2026-11-12 | Thu 12 Nov | Diwali sprint | 7 h 25 min
+Recall | 10
+Biology | 50 | Topic 8 Transport in plants: root hairs, xylem, transpiration, phloem and translocation
+Break | 15
+Hindi | 55 | शिक्षा (education): key vocabulary, reading passage and comprehension questions
+Hindi | 30 | practice
+Break | 15
+Biology | 70 | Topic 9 Transport in animals: circulatory system, heart, blood vessels, blood components, coronary heart disease
+Long break | 45
+English Language | 40 | Paper 1 Reading: comprehension (question types, own-words answers, inference)
+Biology | 50 | Topic 10 Diseases and immunity: pathogens, transmission, body defences, vaccination, antibodies
+Break | 15
+English Language | 40 | Paper 1 Reading: summary writing (selecting points, own words, concision)
+English Language | 30 | practice
+Break | 15
+Biology | 40 | Topic 11 Gas exchange in humans: breathing, alveoli, ventilation, effects of exercise and smoking
+Biology | 30 | practice
+# 2026-11-13 | Fri 13 Nov | Diwali sprint | 6 h 30 min
+Recall | 10
+ICT | 30 | Ch 5 The effects of using IT
+Biology | 35 | Topic 12 Respiration: aerobic and anaerobic respiration, respiration experiments
+Break | 15
+ICT | 50 | Ch 6 ICT applications
+Biology | 35 | Topic 13 Excretion in humans: excretory products, kidney structure and function, dialysis
+Break | 15
+ICT | 30 | Ch 7 The systems life cycle
+Long break | 45
+Biology | 90 | Topic 14 Coordination and response: nervous system, reflex arc, sense organs, the eye; hormones, homeostasis, tropic responses
+Break | 15
+Biology | 30 | practice
+ICT | 35 | Ch 8 Safety and security
+Break | 15
+ICT | 30 | practice
+Hindi | 45 | listen
+# 2026-11-14 | Sat 14 Nov | Diwali sprint | 7 h 15 min
+Recall | 10
+ICT | 30 | Ch 9 Audiences and Ch 10 Communication
+English Literature | 35 | Paper 1 Prose: The Gold Watch
+Break | 15
+English Literature | 30 | practice
+ICT | 50 | Ch 11 File management and Ch 12 Images (do the tasks on a computer)
+Long break | 45
+Physics | 200 | Ch 2 Forces and motion: speed, velocity, acceleration; distance-time and speed-time graphs; mass, weight and g, free fall, resultant force and F = ma, friction, terminal velocity; momentum, impulse, conservation of momentum, circular motion
+Break | 15
+Physics | 30 | practice
+ICT | 60 | Ch 13 Layouts, Ch 14 Styles and Ch 15 Proofing (do the tasks on a computer)
+Break | 15
+ICT | 30 | practice
 # 2026-11-15 | Sun 15 Nov | Light day | 4 h 45 min
 Recall | 10
-Biology | 40 | Topic 14 Coordination and response (2/2): hormones, homeostasis, tropic responses
-Chemistry | 45 | Ch 1 States of matter: kinetic particle theory, changes of state, diffusion, heating and cooling curves
+ICT | 25 | Ch 16 Graphs and charts (do the tasks on a computer)
 Break | 15
-Biology | 40 | Topic 16 Reproduction (1/2): asexual and sexual reproduction, flowers, pollination, fertilisation, seeds and germination
+Physics | 135 | Ch 3 Forces and pressure: moments and the principle of moments, centre of mass, stability, equilibrium; Hooke's law, springs, force-extension graphs; pressure = force / area, liquid pressure, atmospheric pressure, barometer and manometer
+Long break | 45
+Physics | 30 | practice
+ICT | 40 | Ch 17 Document production (do the tasks on a computer)
 Break | 15
-Chemistry | 55 | Ch 2 Atoms and elements: atomic structure, isotopes, electronic configuration, relative atomic mass
-Chemistry | 30 | practice
-Break | 15
-Biology | 45 | Topic 16 Reproduction (2/2): human reproductive systems, fertilisation, pregnancy, hormones, menstrual cycle, birth control
-Biology | 30 | practice
+ICT | 55 | Ch 18 Databases (do the tasks on a computer)
+ICT | 30 | practice
 @ Week 2 | Mon 16 to Sun 22 Nov | School days
 # 2026-11-16 | Mon 16 Nov | School day | 3 h
 Recall | 10
-ICT | 75 | Ch 20 Spreadsheets (do the tasks on a computer)
+Physics | 110 | Ch 4 Forces and energy: forms of energy, transfers and conservation, work done, kinetic and gravitational potential energy; power, efficiency, energy resources (fossil fuels, nuclear, solar, wind, hydro, geothermal)
 Break | 15
+Physics | 30 | practice
+ICT | 30 | Ch 19 Presentations (do the tasks on a computer)
 ICT | 30 | practice
-Hindi | 55 | शिक्षा (education) (1/2): key vocabulary, reading passage and comprehension questions
-Break | 15
-Hindi | 30 | practice
 # 2026-11-17 | Tue 17 Nov | School day | 3 h 5 min
 Recall | 10
-Biology | 45 | Topic 17.1 to 17.3: chromosomes, genes and proteins, mitosis, meiosis
-Biology | 30 | practice
-Break | 15
-ICT | 50 | Ch 21 Website authoring (do the tasks on a computer)
-ICT | 30 | practice
+English Literature | 35 | Paper 1 Prose: Nick
+English Literature | 30 | practice
 Break | 15
 Hindi | 45 | listen
 # 2026-11-18 | Wed 18 Nov | School day | 2 h 40 min
 Recall | 10
-Physics | 25 | Ch 3 Forces and pressure (2/3): Hooke's law, springs, force-extension graphs
-English Literature | 35 | Paper 1 Prose: Nick
-English Literature | 30 | practice
+Biology | 85 | Topic 16 Reproduction: asexual and sexual reproduction, flowers, pollination, fertilisation, seeds and germination; human reproductive systems, fertilisation, pregnancy, hormones, menstrual cycle, birth control
 Break | 15
-Physics | 50 | Ch 3 Forces and pressure (3/3): pressure = force / area, liquid pressure, atmospheric pressure, barometer and manometer
-Physics | 30 | practice
+Biology | 45 | Topic 17.1 to 17.3: chromosomes, genes and proteins, mitosis, meiosis
+Biology | 30 | practice
 # 2026-11-19 | Thu 19 Nov | School day | 3 h 20 min
 Recall | 10
-Physics | 55 | Ch 4 Forces and energy (1/2): forms of energy, transfers and conservation, work done, kinetic and gravitational potential energy
+Physics | 160 | Ch 5 Thermal effects: kinetic particle model, thermal expansion, temperature and thermometers; specific heat capacity, melting and boiling, latent heat, evaporation; conduction, convection, radiation and their applications
 Break | 15
-Physics | 55 | Ch 4 Forces and energy (2/2): power, efficiency, energy resources (fossil fuels, nuclear, solar, wind, hydro, geothermal)
-Break | 15
-Physics | 55 | Ch 5 Thermal effects (1/3): kinetic particle model, thermal expansion, temperature and thermometers
 Physics | 30 | practice
 # 2026-11-20 | Fri 20 Nov | School day | 2 h 55 min
 ! Exam today: English Literature P4 Unseen.
 Recall | 10
-Physics | 60 | Ch 5 Thermal effects (2/3): specific heat capacity, melting and boiling, latent heat, evaporation
+English Literature | 35 | Paper 1 Prose: The Woman's Rose
+English Literature | 30 | practice
 Break | 15
-Physics | 45 | Ch 5 Thermal effects (3/3): conduction, convection, radiation and their applications
+Physics | 100 | Ch 6 Waves and sounds: wave properties, transverse and longitudinal waves, v = f x wavelength, reflection, refraction, diffraction; sound, speed in different media, echoes, pitch and loudness, ultrasound, calculations
 Break | 15
-Physics | 55 | Ch 6 Waves and sounds (1/2): wave properties, transverse and longitudinal waves, v = f x wavelength, reflection, refraction, diffraction
 Physics | 30 | practice
 # 2026-11-21 | Sat 21 Nov | Weekend | 6 h 10 min
 Recall | 10
-Physics | 45 | Ch 6 Waves and sounds (2/2): sound, speed in different media, echoes, pitch and loudness, ultrasound, calculations
-Break | 15
-Physics | 55 | Ch 7 Rays and waves (1/4): reflection in plane mirrors, refraction and refractive index
-Break | 15
-Hindi | 75 | लेख (article): format and one practice article, using शिक्षा vocabulary
+Physics | 190 | Ch 7 Rays and waves: reflection in plane mirrors, refraction and refractive index; critical angle, total internal reflection, optical fibres, dispersion; thin lenses, ray diagrams, real and virtual images, magnification; electromagnetic spectrum, order, properties, uses and dangers
 Long break | 45
-Hindi | 30 | practice
-Physics | 40 | Ch 7 Rays and waves (2/4): critical angle, total internal reflection, optical fibres, dispersion
-Break | 15
-Physics | 60 | Ch 7 Rays and waves (3/4): thin lenses, ray diagrams, real and virtual images, magnification
 Physics | 30 | practice
+Chemistry | 55 | Ch 2 Atoms and elements: atomic structure, isotopes, electronic configuration, relative atomic mass
 Break | 15
+Chemistry | 30 | practice
 Hindi | 45 | listen
 # 2026-11-22 | Sun 22 Nov | Light day | 1 h 55 min
 Recall | 10
-English Literature | 35 | Paper 1 Prose: The Woman's Rose
-English Literature | 35 | Paper 1 Prose: The Black Ball
+English Language | 40 | Paper 1 Reading: writer's effect (word choice, imagery, sentence structure, explaining the effect)
+English Language | 25 | Papers 1 and 2: writer's attitude (tone, viewpoint, supporting evidence)
+English Language | 25 | Writing: journal entry (format, voice, reflective detail) plus one timed piece
 Break | 15
-English Literature | 35 | Paper 1 Prose: When It Happens
-English Literature | 30 | practice
+English Language | 30 | practice
 @ Week 3 | Mon 23 to Sun 29 Nov | Exam week begins
 # 2026-11-23 | Mon 23 Nov | Study day | 5 h 55 min
 Recall | 10
-Hindi | 65 | तकनीक (technology) (1/2): key vocabulary, reading passage and comprehension questions
+ICT | 75 | Ch 20 Spreadsheets (do the tasks on a computer)
 Break | 15
-Physics | 35 | Ch 7 Rays and waves (4/4): electromagnetic spectrum, order, properties, uses and dangers
+English Language | 30 | Writing: newspaper report (headline, lead, quotes, structure, register) plus one timed piece
+ICT | 50 | Ch 21 Website authoring (do the tasks on a computer)
 Break | 15
-Hindi | 65 | रिपोर्ट (report): format and one practice report, using तकनीक vocabulary
-Break | 15
-Physics | 40 | Ch 8 Electricity (1/5): static electricity, charging, electric fields, conductors and insulators
+ICT | 30 | practice
+English Language | 35 | Writing: speech writing (audience, rhetorical devices, structure) plus one timed piece
 Long break | 45
-Hindi | 65 | जीवनी (biography) (1/2): key vocabulary, reading passage and comprehension questions
+Hindi | 75 | लेख (article): format and one practice article, using शिक्षा vocabulary
 Break | 15
 Hindi | 30 | practice
-Physics | 45 | Ch 8 Electricity (2/5): current, potential difference, e.m.f., resistance, charge = current x time
-Break | 15
-Physics | 30 | practice
+English Language | 25 | Writing: interview (layout, register, questions and answers) plus one timed piece
+English Language | 30 | practice
 # 2026-11-24 | Tue 24 Nov | Study day | 6 h
 Recall | 10
-English Literature | 35 | Paper 1 Prose: The Man Who Walked on the Moon
-English Literature | 35 | Paper 1 Prose: A Walk to the Jetty
+Hindi | 65 | तकनीक (technology): key vocabulary, reading passage and comprehension questions
 Break | 15
-English Literature | 35 | Paper 1 Prose: Showing the Flag
-English Literature | 35 | Paper 1 Prose: Haywards Heath
+English Language | 35 | Writing: formal and informal letters (layout, openings and closings, register) plus one timed piece
 Break | 15
-English Literature | 75 | Paper 1 Poetry: Song: Love Armed; A Different History; Where I Come From
+Hindi | 65 | रिपोर्ट (report): format and one practice report, using तकनीक vocabulary
 Long break | 45
-English Literature | 75 | Paper 1 Poetry: Report to Wordsworth; Follower; Storyteller
+English Language | 35 | Writing: formal report (headings, sections, recommendations, objective tone) plus one timed piece
+English Language | 30 | practice
 Break | 15
-English Literature | 30 | practice
+Hindi | 65 | जीवनी (biography): key vocabulary, reading passage and comprehension questions
+Break | 15
+Hindi | 30 | practice
 Hindi | 45 | listen
 # 2026-11-25 | Wed 25 Nov | School day | 2 h 20 min
 ! Exam today: Biology.
 Recall | 10
-Chemistry | 45 | Ch 3 Atoms combining (1/2): ionic and metallic bonding, formation of ions, dot-and-cross diagrams for ionic compounds, structure and properties of ionic compounds and metals
-Chemistry | 30 | practice
+English Literature | 35 | Paper 1 Prose: The Black Ball
+English Literature | 35 | Paper 1 Prose: When It Happens
 Break | 15
-English Language | 40 | Paper 1 Reading: summary writing (selecting points, own words, concision)
-English Language | 30 | practice
+English Literature | 35 | Paper 1 Prose: The Man Who Walked on the Moon
+English Literature | 35 | Paper 1 Prose: A Walk to the Jetty
+Break | 15
+English Literature | 30 | practice
 # 2026-11-26 | Thu 26 Nov | School day | 3 h
 ! Exam today: ICT.
 Recall | 10
-English Literature | 75 | Paper 1 Poetry: A Married State; Sonnet 18; Chimney Sweeper
+English Literature | 35 | Paper 1 Prose: Showing the Flag
+English Literature | 35 | Paper 1 Prose: Haywards Heath
 Break | 15
-English Literature | 75 | Paper 1 Poetry: Lament; Hunting Snake; Carpet Weavers
+English Literature | 75 | Paper 1 Poetry: Song: Love Armed; A Different History; Where I Come From
 Break | 15
 English Literature | 30 | practice
 # 2026-11-27 | Fri 27 Nov | School day | 3 h 20 min
 ! Exams today: Hindi P1, Additional Maths P1.
 Recall | 10
-Physics | 40 | Ch 8 Electricity (3/5): Ohm's law, I-V graphs, LDR, thermistor, diode, variable resistor
-English Language | 40 | Paper 1 Reading: writer's effect (word choice, imagery, sentence structure, explaining the effect)
+English Literature | 75 | Paper 1 Poetry: Report to Wordsworth; Follower; Storyteller
 Break | 15
-English Language | 30 | practice
-Physics | 60 | Ch 8 Electricity (4/5): series and parallel circuits, combined resistance, potential divider
+English Literature | 75 | Paper 1 Poetry: A Married State; Sonnet 18; Chimney Sweeper
 Break | 15
-Physics | 30 | practice
+English Literature | 30 | practice
 # 2026-11-28 | Sat 28 Nov | Weekend | 6 h
 Recall | 10
-English Language | 25 | Papers 1 and 2: writer's attitude (tone, viewpoint, supporting evidence)
-Physics | 40 | Ch 8 Electricity (5/5): electrical energy and power, kilowatt-hours, mains safety, fuses and earthing
-English Language | 25 | Writing: journal entry (format, voice, reflective detail) plus one timed piece
-Break | 15
-Physics | 35 | Ch 9 Magnets and currents (1/3): magnets, magnetic fields, electromagnets
-English Language | 30 | Writing: newspaper report (headline, lead, quotes, structure, register) plus one timed piece
+Physics | 225 | Ch 8 Electricity: static electricity, charging, electric fields, conductors and insulators; current, potential difference, e.m.f., resistance, charge = current x time; Ohm's law, I-V graphs, LDR, thermistor, diode, variable resistor; series and parallel circuits, combined resistance, potential divider; electrical energy and power, kilowatt-hours, mains safety, fuses and earthing
 Long break | 45
-Physics | 40 | Ch 9 Magnets and currents (2/3): force on a current-carrying wire, motor effect, d.c. motor
-English Language | 35 | Writing: speech writing (audience, rhetorical devices, structure) plus one timed piece
-Break | 15
-Physics | 55 | Ch 9 Magnets and currents (3/3): electromagnetic induction, generator, transformers
 Physics | 30 | practice
 Break | 15
-English Language | 25 | Writing: interview (layout, register, questions and answers) plus one timed piece
-English Language | 30 | practice
+English Literature | 75 | Paper 1 Poetry: Lament; Hunting Snake; Carpet Weavers
+Break | 15
+English Literature | 30 | practice
 # 2026-11-29 | Sun 29 Nov | Weekend | 5 h 40 min
 Recall | 10
-Physics | 35 | Ch 10 Atoms and radioactivity (1/2): nuclear model of the atom, nucleon and proton numbers, isotopes
-Chemistry | 45 | Ch 3 Atoms combining (2/2): covalent bonding, dot-and-cross diagrams, simple molecules, giant covalent structures (diamond, graphite, silicon dioxide), properties
+Physics | 130 | Ch 9 Magnets and currents: magnets, magnetic fields, electromagnets; force on a current-carrying wire, motor effect, d.c. motor; electromagnetic induction, generator, transformers
 Break | 15
-Chemistry | 30 | practice
-English Language | 35 | Writing: formal and informal letters (layout, openings and closings, register) plus one timed piece
-Long break | 45
-Physics | 55 | Ch 10 Atoms and radioactivity (2/2): alpha, beta and gamma radiation, half-life, uses and safety
-Physics | 30 | practice
-Break | 15
-English Language | 35 | Writing: formal report (headings, sections, recommendations, objective tone) plus one timed piece
+English Language | 45 | Paper 2 Composition: descriptive writing (sensory detail, imagery, structure) plus one timed piece
 English Language | 30 | practice
+Long break | 45
+Physics | 90 | Ch 10 Atoms and radioactivity: nuclear model of the atom, nucleon and proton numbers, isotopes; alpha, beta and gamma radiation, half-life, uses and safety
 Break | 15
+Physics | 30 | practice
 Hindi | 45 | listen
 @ Week 4 | Mon 30 Nov to Sun 6 Dec | Chemistry and Drama
 # 2026-11-30 | Mon 30 Nov | Study day | 5 h 25 min
 Recall | 10
-Chemistry | 50 | Ch 4 Reacting masses and chemical equations: formulae, balanced and ionic equations, state symbols, Mr
+Chemistry | 90 | Ch 3 Atoms combining: ionic and metallic bonding, formation of ions, dot-and-cross diagrams for ionic compounds, structure and properties of ionic compounds and metals; covalent bonding, dot-and-cross diagrams, simple molecules, giant covalent structures (diamond, graphite, silicon dioxide), properties
 Break | 15
-English Language | 45 | Paper 2 Composition: descriptive writing (sensory detail, imagery, structure) plus one timed piece
-English Language | 30 | practice
-Break | 15
-Chemistry | 40 | Ch 5 Using moles (1/2): the mole, relative formula mass, mole calculations from masses, gas volumes
-Long break | 45
 English Literature | 70 | Paper 3 Drama: A Midsummer Night's Dream Act 1 (plot, characters, themes, key quotes, language, plan one exam-style essay question)
-Break | 15
-English Literature | 30 | practice
-Chemistry | 40 | Ch 5 Using moles (2/2): concentration, limiting reactant, percentage yield and purity, empirical and molecular formulae
-Break | 15
-Chemistry | 30 | practice
-# 2026-12-01 | Tue 1 Dec | School day | 3 h 20 min
-! Exams today: English Literature P1, Additional Maths P2.
-Recall | 10
-Chemistry | 30 | Ch 6 Redox reactions: oxidation and reduction, oxidation numbers, oxidising and reducing agents
-English Language | 45 | Paper 2 Composition: narrative writing (plot structure, characters, tension, ending) plus one timed piece
-Break | 15
-English Language | 30 | practice
-Chemistry | 30 | Ch 7 Electricity and chemical change (1/2): electrolysis of molten compounds and aqueous solutions, predicting electrode products, half-equations
-Chemistry | 30 | Ch 7 Electricity and chemical change (2/2): electroplating, copper refining, electrolysis in industry, inert and active electrodes
-Break | 15
-Chemistry | 30 | practice
-# 2026-12-02 | Wed 2 Dec | School day | 2 h 35 min
-! Exams today: English Language P1, Hindi P2 listening.
-Recall | 10
-Chemistry | 30 | Ch 8 Energy changes and reactions: exothermic and endothermic reactions, energy level diagrams, bond energies
+Long break | 45
+Chemistry | 50 | Ch 4 Reacting masses and chemical equations: formulae, balanced and ionic equations, state symbols, Mr
 Chemistry | 30 | practice
 Break | 15
 English Literature | 85 | Paper 3 Drama: A Midsummer Night's Dream Act 2 (forest, fairies, Oberon, Titania, Puck, love potion, plan one exam-style essay question)
 Break | 15
 English Literature | 30 | practice
+# 2026-12-01 | Tue 1 Dec | School day | 3 h 20 min
+! Exams today: English Literature P1, Additional Maths P2.
+Recall | 10
+Chemistry | 80 | Ch 5 Using moles: the mole, relative formula mass, mole calculations from masses, gas volumes; concentration, limiting reactant, percentage yield and purity, empirical and molecular formulae
+Break | 15
+Chemistry | 30 | practice
+English Language | 45 | Paper 2 Composition: narrative writing (plot structure, characters, tension, ending) plus one timed piece
+Break | 15
+English Language | 30 | practice
+# 2026-12-02 | Wed 2 Dec | School day | 2 h 35 min
+! Exams today: English Language P1, Hindi P2 listening.
+Recall | 10
+Chemistry | 30 | Ch 6 Redox reactions: oxidation and reduction, oxidation numbers, oxidising and reducing agents
+Chemistry | 60 | Ch 7 Electricity and chemical change: electrolysis of molten compounds and aqueous solutions, predicting electrode products, half-equations; electroplating, copper refining, electrolysis in industry, inert and active electrodes
+Break | 15
+Chemistry | 30 | Ch 8 Energy changes and reactions: exothermic and endothermic reactions, energy level diagrams, bond energies
+Chemistry | 50 | Ch 9 The rate of reaction: factors affecting rate, collision theory, catalysts, rate graphs
+Break | 15
+Chemistry | 30 | practice
 # 2026-12-03 | Thu 3 Dec | School day | 3 h
 ! Exam today: Physics.
+Recall | 10
+Chemistry | 35 | Ch 10 Reversible reactions and equilibrium: dynamic equilibrium, effect of conditions, Haber and Contact processes
+Break | 15
+Chemistry | 90 | Ch 11 Acids, bases and salts: pH scale, indicators, properties of acids and bases, neutralisation, strong and weak acids; making soluble and insoluble salts, titration, types of oxide
+Break | 15
+Chemistry | 30 | practice
+# 2026-12-04 | Fri 4 Dec | School day | 2 h 40 min
+! Exam today: English Language P2.
 Recall | 10
 English Literature | 40 | Paper 3 Drama: A Midsummer Night's Dream Act 3 scene 1 (rehearsal, Bottom's transformation, key quotes)
 Break | 15
 English Literature | 90 | Paper 3 Drama: A Midsummer Night's Dream Act 3 scene 2 (lovers' confusion, Puck, quarrels, key quotes), then write a 25-mark essay plan
 Break | 15
 English Literature | 30 | practice
-# 2026-12-04 | Fri 4 Dec | School day | 2 h 40 min
-! Exam today: English Language P2.
-Recall | 10
-Chemistry | 50 | Ch 9 The rate of reaction: factors affecting rate, collision theory, catalysts, rate graphs
-Chemistry | 35 | Ch 10 Reversible reactions and equilibrium: dynamic equilibrium, effect of conditions, Haber and Contact processes
-Break | 15
-Chemistry | 45 | Ch 11 Acids, bases and salts (1/2): pH scale, indicators, properties of acids and bases, neutralisation, strong and weak acids
-Chemistry | 30 | practice
 # 2026-12-05 | Sat 5 Dec | Weekend | 4 h
 Recall | 10
-Chemistry | 45 | Ch 11 Acids, bases and salts (2/2): making soluble and insoluble salts, titration, types of oxide
-Break | 15
 Chemistry | 60 | Ch 12 The Periodic table: groups and periods, trends, Group I, Group VII, noble gases, transition elements
 Break | 15
 Chemistry | 50 | Ch 13 Behaviour of metals: reactivity series, reactions with water, acids and oxygen, displacement
@@ -338,9 +302,9 @@ Chemistry | 30 | practice
 # 2026-12-06 | Sun 6 Dec | Weekend | 2 h 30 min
 Recall | 10
 Chemistry | 45 | Ch 18 Separation and purification: filtration, crystallisation, distillation, chromatography and Rf, purity
-Chemistry | 35 | Ch 19 Experiments and tests in lab (1/2): apparatus, planning experiments, tests for aqueous cations and anions
 Break | 15
-Chemistry | 40 | Ch 19 Experiments and tests in lab (2/2): tests for gases, flame tests, identifying substances from results
+Chemistry | 75 | Ch 19 Experiments and tests in lab: apparatus, planning experiments, tests for aqueous cations and anions; tests for gases, flame tests, identifying substances from results
+Break | 15
 Chemistry | 30 | practice
 @ Free days | Mon 7 to Thu 10 Dec | No new topics
 # 2026-12-07 | Mon 7 Dec | Free day | Free

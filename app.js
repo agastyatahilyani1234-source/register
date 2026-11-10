@@ -359,6 +359,7 @@
     if (it.type === 'practice') tag = '<span class="tag">practice</span>';
     else if (it.type === 'listen') tag = '<span class="tag">listening</span>';
     else if (it.type === 'recall') tag = '<span class="tag">recall</span>';
+    if (it.min > 90 && !NON_STUDY[it.type]) tag += '<span class="tag">take a break every 90 min</span>';
     if (opts.from) tag += '<span class="tag tag-moved">from ' + esc(opts.from) + '</span>';
     if (!isDone(it) && opts.movedTo) tag += '<span class="tag tag-moved">moved to ' + esc(opts.movedTo) + '</span>';
     if (!isDone(it) && opts.dropped) tag += '<span class="tag">dropped</span>';
